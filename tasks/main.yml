@@ -1,0 +1,94 @@
+---
+- name: Create etcd config directory
+  file:
+    path: "{{etcd_conf_dir}}"
+    state: directory
+  tags:
+    - etcd
+
+- name: Create etcd download directory
+  file:
+    path: "{{etcd_download_dir}}"
+    state: directory
+  tags:
+    - etcd
+
+- name: Create etcd bin directory
+  file:
+    path: "{{etcd_bin_dir}}"
+    state: directory
+  tags:
+    - etcd
+
+- name: Create etcd data directory
+  file:
+    path: "{{etcd_data_dir}}"
+    state: directory
+  tags:
+    - etcd
+
+- name: Copy certificates
+  copy:
+    src: "{{local_cert_dir}}/{{item}}"
+    dest: "{{etcd_conf_dir}}/{{item}}"
+    mode: 0640
+    owner: root
+    group: root
+  with_items:
+    - "{{etcd_certificates}}"
+  tags:
+    - etcd
+
+- name: Downloading official etcd release
+  get_url:
+    url: https://github.com/coreos/etcd/releases/download/v{{etcd_version}}/etcd-v{{etcd_version}}-linux-amd64.tar.gz
+    dest: "{{etcd_download_dir}}"
+    mode: 0755
+  tags:
+    - etcd
+
+- name: Unzip downloaded file
+  unarchive:
+    src: "{{etcd_download_dir}}/etcd-v{{etcd_version}}-linux-amd64.tar.gz"
+    dest: "{{etcd_download_dir}}/"
+    remote_src: yes
+    creates: "{{etcd_download_dir}}/etcd-v{{etcd_version}}-linux-amd64/etcd"
+  tags:
+    - etcd
+
+- name: Copy etcd binaries to destination directory
+  copy:
+    src: "{{etcd_download_dir}}/etcd-v{{etcd_version}}-linux-amd64/{{item}}"
+    dest: "{{etcd_bin_dir}}/{{item}}"
+    mode: 0755
+    owner: root
+    group: root
+    remote_src: yes
+  with_items:
+    - etcd
+    - etcdctl
+  tags:
+    - etcd
+
+- name: Create systemd unit file
+  template:
+    src: etc/systemd/system/etcd.service.j2
+    dest: /etc/systemd/system/etcd.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload systemd
+  tags:
+    - etcd
+
+- meta: flush_handlers
+
+- name: Enable and start etcd
+  service:
+    name: etcd
+    enabled: yes
+    state: started
+  tags:
+    - etcd
+

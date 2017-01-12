@@ -1,0 +1,18 @@
+---
+local_cert_dir: /etc/cfssl
+
+etcd_version: 3.0.15
+etcd_client_port: 2379
+etcd_peer_port: 2380
+etcd_interface: tap0
+etcd_initial_cluster_token: etcd-cluster-0
+etcd_initial_cluster_state: new
+etcd_name: etcd_kubernetes
+etcd_conf_dir: /etc/etcd
+etcd_download_dir: /opt/etcd
+etcd_bin_dir: /usr/local/bin
+etcd_data_dir: /var/lib/etcd
+etcd_certificates:
+  - ca.pem
+  - kubernetes-key.pem
+  - kubernetes.pem
