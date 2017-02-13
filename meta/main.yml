@@ -9,4 +9,5 @@ galaxy_info:
     - xenial
   galaxy_tags:
     - etcd
-    - high availbility
+    - ha
+    - kv
