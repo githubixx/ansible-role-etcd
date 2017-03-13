@@ -13,6 +13,7 @@ etcd_download_dir: /opt/etcd
 etcd_bin_dir: /usr/local/bin
 etcd_data_dir: /var/lib/etcd
 etcd_certificates:
-  - ca.pem
-  - kubernetes-key.pem
-  - kubernetes.pem
+  - ca-etcd.pem
+  - ca-etcd-key.pem
+  - cert-etcd.pem
+  - cert-etcd-key.pem

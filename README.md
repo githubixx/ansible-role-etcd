@@ -1,14 +1,14 @@
 ansible-role-etcd
 =================
 
-This Ansible playbook is used in [kubernetes the not so hard way with ansible (at scaleway) - part 5 - etcd cluster](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-at-scaleway-part-5/).
+This Ansible playbook is used in [Kubernetes the not so hard way with Ansible (at Scaleway) - Part 5 - etcd cluster](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-at-scaleway-part-5/). Have a look there for more information.
 
-Installes etcd cluster. HINT: This playbook does NOT reload or restart the etcd cluster nodes after the systemd service file was changed! This is intentional! It would be a very bad idea to restart all etcd nodes at the same time. So after changes restart/reload etcd by hand one node after the other and check log output if the node joined the cluster again afterwards! As a side node: The script will issue a `systemctl daemon-reload` after the etcd service file was changed so that at least systemd is aware of the changed file and you don't take care about that.
+Installes a etcd cluster. HINT: This playbook does NOT reload or restart the etcd cluster nodes after the systemd service file was changed! This is intentional! It would be a very bad idea to restart all etcd nodes at the same time. So after changes restart/reload etcd by hand one node after the other and check log output if the node joined the cluster again afterwards! As a side node: The script will issue a `systemctl daemon-reload` after the etcd service file was changed so that at least systemd is aware of the changed file and you don't take care about that.
 
 Requirements
 ------------
 
-This playbook requires that you already created some certificates for etcd (see [ansible-role-cfssl](https://github.com/githubixx/ansible-role-cfssl)). The playbook searches the certificates in `local_cert_dir` on the host this playbook runs.
+This playbook requires that you already created some certificates for etcd (see [Kubernetes the not so hard way with Ansible (at Scaleway) - Part 4 - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-at-scaleway-part-4/)). The playbook searches the certificates in `local_cert_dir` on the host this playbook runs.
 
 Role Variables
 --------------
@@ -28,17 +28,17 @@ etcd_download_dir: /opt/etcd
 etcd_bin_dir: /usr/local/bin
 etcd_data_dir: /var/lib/etcd
 etcd_certificates:
-  - ca.pem
-  - kubernetes-key.pem
-  - kubernetes.pem
+  - ca-etcd.pem
+  - ca-etcd-key.pem
+  - cert-etcd.pem
+  - cert-etcd-key.pem
 ```
 
 Example Playbook
 ----------------
 
 ```
-- hosts: etcd
-
+- hosts: k8s-etcd
   roles:
     - githubixx.etcd
 ```

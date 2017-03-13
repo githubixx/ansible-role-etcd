@@ -1,5 +1,5 @@
 {% macro cluster_hosts() %}
-{%- for host in groups['etcd'] -%} 
+{%- for host in groups['k8s-etcd'] -%}
 {{hostvars[host]['ansible_hostname']}}=https://{{hostvars[host]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}}{% if not loop.last %},{% endif %}
 {%- endfor -%} 
 {% endmacro %}
@@ -10,12 +10,12 @@ Documentation=https://github.com/coreos
 
 [Service]
 ExecStart={{etcd_bin_dir}}/etcd --name {{ansible_hostname}} \
-  --cert-file={{etcd_conf_dir}}/kubernetes.pem \
-  --key-file={{etcd_conf_dir}}/kubernetes-key.pem \
-  --peer-cert-file={{etcd_conf_dir}}/kubernetes.pem \
-  --peer-key-file={{etcd_conf_dir}}/kubernetes-key.pem \
-  --trusted-ca-file={{etcd_conf_dir}}/ca.pem \
-  --peer-trusted-ca-file={{etcd_conf_dir}}/ca.pem \
+  --cert-file={{etcd_conf_dir}}/cert-etcd.pem \
+  --key-file={{etcd_conf_dir}}/cert-etcd-key.pem \
+  --peer-cert-file={{etcd_conf_dir}}/cert-etcd.pem \
+  --peer-key-file={{etcd_conf_dir}}/cert-etcd-key.pem \
+  --peer-trusted-ca-file={{etcd_conf_dir}}/ca-etcd.pem \
+  --trusted-ca-file={{etcd_conf_dir}}/ca-etcd.pem \
   --initial-advertise-peer-urls https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}} \
   --listen-peer-urls https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}} \
   --listen-client-urls https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_client_port}},http://127.0.0.1:{{etcd_client_port}} \
