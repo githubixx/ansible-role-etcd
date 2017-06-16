@@ -38,7 +38,7 @@ Example Playbook
 ----------------
 
 ```
-- hosts: k8s-etcd
+- hosts: k8s_etcd
   roles:
     - githubixx.etcd
 ```
