@@ -8,13 +8,13 @@ Installes a etcd cluster. HINT: This playbook does NOT reload or restart the etc
 Requirements
 ------------
 
-This playbook requires that you already created some certificates for etcd (see [Kubernetes the not so hard way with Ansible (at Scaleway) - Part 4 - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-at-scaleway-part-4/)). The playbook searches the certificates in `local_cert_dir` on the host this playbook runs.
+This playbook requires that you already created some certificates for etcd (see [Kubernetes the not so hard way with Ansible (at Scaleway) - Part 4 - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-at-scaleway-part-4/)). The playbook searches the certificates in `k8s_ca_conf_directory` on the host this playbook runs.
 
 Role Variables
 --------------
 
 ```
-local_cert_dir: /etc/cfssl
+k8s_ca_conf_directory: /etc/k8s/certs
 
 etcd_version: 3.0.15
 etcd_client_port: 2379
