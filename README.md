@@ -16,7 +16,7 @@ Role Variables
 ```
 k8s_ca_conf_directory: /etc/k8s/certs
 
-etcd_version: 3.0.15
+etcd_version: 3.2.8
 etcd_client_port: 2379
 etcd_peer_port: 2380
 etcd_interface: tap0
