@@ -9,13 +9,16 @@ Description=etcd
 Documentation=https://github.com/coreos
 
 [Service]
-ExecStart={{etcd_bin_dir}}/etcd --name {{ansible_hostname}} \
-  --cert-file={{etcd_conf_dir}}/cert-etcd.pem \
-  --key-file={{etcd_conf_dir}}/cert-etcd-key.pem \
-  --peer-cert-file={{etcd_conf_dir}}/cert-etcd.pem \
-  --peer-key-file={{etcd_conf_dir}}/cert-etcd-key.pem \
-  --peer-trusted-ca-file={{etcd_conf_dir}}/ca-etcd.pem \
-  --trusted-ca-file={{etcd_conf_dir}}/ca-etcd.pem \
+ExecStart={{etcd_bin_dir}}/etcd \
+  --name {{ansible_hostname}} \
+  --cert-file {{etcd_conf_dir}}/cert-etcd.pem \
+  --key-file {{etcd_conf_dir}}/cert-etcd-key.pem \
+  --peer-cert-file {{etcd_conf_dir}}/cert-etcd.pem \
+  --peer-key-file {{etcd_conf_dir}}/cert-etcd-key.pem \
+  --peer-trusted-ca-file {{etcd_conf_dir}}/ca-etcd.pem \
+  --peer-client-cert-auth \
+  --client-cert-auth \
+  --trusted-ca-file {{etcd_conf_dir}}/ca-etcd.pem \
   --initial-advertise-peer-urls https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}} \
   --listen-peer-urls https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}} \
   --listen-client-urls https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_client_port}},http://127.0.0.1:{{etcd_client_port}} \
@@ -23,7 +26,7 @@ ExecStart={{etcd_bin_dir}}/etcd --name {{ansible_hostname}} \
   --initial-cluster-token {{etcd_initial_cluster_token}} \
   --initial-cluster {{cluster_hosts()}} \
   --initial-cluster-state {{etcd_initial_cluster_state}} \
-  --data-dir={{etcd_data_dir}}
+  --data-dir {{etcd_data_dir}}
 Restart=on-failure
 RestartSec=5
 Type=notify

@@ -29,7 +29,7 @@
 
 - name: Copy certificates
   copy:
-    src: "{{local_cert_dir}}/{{item}}"
+    src: "{{k8s_ca_conf_directory}}/{{item}}"
     dest: "{{etcd_conf_dir}}/{{item}}"
     mode: 0640
     owner: root
