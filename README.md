@@ -65,8 +65,6 @@ etcd_max_wals: "5"
 etcd_cors: ""
 # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
 etcd_quota_backend_bytes: "0"
-# Enable debug-level logging for etcd
-etcd_debug: "false"
 # Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
 etcd_log_package_levels: ""
 # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
