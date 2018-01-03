@@ -10,6 +10,21 @@ Versions
 
 I tag every release and try to stay with [semantic versioning](http://semver.org) (well some kind of). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `r1.0.0_v3.2.8` means this is release 1.0.0 of this role and it's meant to be used with etcd version 3.2.8. If the role itself changes `rX.Y.Z` will increase. If the etcd version changes `vX.Y.Z` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
 
+Changelog
+---------
+**r2.0.0_v3.2.13**
+
+- updated etcd to 3.2.13
+- added new etcd flags (see role variables below)
+- change default for `k8s_ca_conf_directory` (see role variables below). If you already defined `k8s_ca_conf_directory` by yourself in `group_vars/k8s.yml` or `group_vars/all.yml` nothing changes for you.
+- more documentation for role variables
+
+**r1.0.0_v3.2.8**
+
+- updated etcd to 3.2.8
+- rename `local_cert_dir` to `k8s_ca_conf_directory` and change default location
+- smaller changes needed for Kubernetes v1.8
+
 Requirements
 ------------
 
@@ -27,7 +42,7 @@ Role Variables
 k8s_ca_conf_directory: "{{ '~/k8s/certs' | expanduser }}"
 
 # etcd version
-etcd_version: "3.2.8"
+etcd_version: "3.2.13"
 # Port where etcd is listening for clients
 etcd_client_port: "2379"
 # Port where etcd is listening for it's peer's
