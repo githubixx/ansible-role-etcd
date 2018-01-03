@@ -6,19 +6,31 @@
 # "/home/da_user/k8s/certs".
 k8s_ca_conf_directory: "{{ '~/k8s/certs' | expanduser }}"
 
-etcd_version: 3.2.8
-etcd_client_port: 2379
-etcd_peer_port: 2380
-etcd_interface: tap0
-etcd_initial_cluster_token: etcd-cluster-0
-etcd_initial_cluster_state: new
-etcd_name: etcd_kubernetes
-etcd_conf_dir: /etc/etcd
-etcd_download_dir: /opt/etcd
-etcd_bin_dir: /usr/local/bin
-etcd_data_dir: /var/lib/etcd
+# etcd version
+etcd_version: "3.2.8"
+# Port where etcd listening for clients
+etcd_client_port: "2379"
+# Port where etcd is listening for it's peer's
+etcd_peer_port: "2380"
+# Interface to bind etcd ports to
+etcd_interface: "tap0"
+# Initial cluster token for the etcd cluster during bootstrap.
+etcd_initial_cluster_token: "etcd-cluster-0"
+# Initial cluster state ('new' or 'existing')
+etcd_initial_cluster_state: "new"
+# Directroy for etcd configuration
+etcd_conf_dir: "/etc/etcd"
+# Directory to store downloaded etcd archive
+# Should not be deleted to avoid downloading over and over again
+etcd_download_dir: "/opt/etcd"
+# Directroy to store etcd binaries
+etcd_bin_dir: "/usr/local/bin"
+# etcd data directory (etcd database files so to say)
+etcd_data_dir: "/var/lib/etcd"
+
+# Certificate authority and certificate files for etcd
 etcd_certificates:
-  - ca-etcd.pem
-  - ca-etcd-key.pem
-  - cert-etcd.pem
-  - cert-etcd-key.pem
+  - ca-etcd.pem        # client server TLS trusted CA key file/peer server TLS trusted CA file
+  - ca-etcd-key.pem    # CA key file
+  - cert-etcd.pem      # peer server TLS cert file
+  - cert-etcd-key.pem  # peer server TLS key file
