@@ -31,7 +31,8 @@ ExecStart={{etcd_bin_dir}}/etcd \
   --auto-compaction-retention "{{etcd_auto_compaction_retention}}" \
   --snapshot-count "{{etcd_snapshot_count}}" \
   --heartbeat-interval "{{etcd_heartbeat_interval}}" \
-  --election-timeout "{{etcd_election_timeout}}"
+  --election-timeout "{{etcd_election_timeout}}" \
+  --max-snapshots "{{etcd_max_snapshots}}"
 
 Restart=on-failure
 RestartSec=5

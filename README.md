@@ -57,6 +57,8 @@ etcd_snapshot_count: "100000"
 etcd_heartbeat_interval: "100"
 # Time (in milliseconds) for an election to timeout. See tuning documentation for details
 etcd_election_timeout: "1000"
+# Maximum number of snapshot files to retain (0 is unlimited)
+etcd_max_snapshots: "5"
 
 # Certificate authority and certificate files for etcd 
 etcd_certificates:
