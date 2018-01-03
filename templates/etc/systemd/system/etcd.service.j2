@@ -33,7 +33,8 @@ ExecStart={{etcd_bin_dir}}/etcd \
   --heartbeat-interval "{{etcd_heartbeat_interval}}" \
   --election-timeout "{{etcd_election_timeout}}" \
   --max-snapshots "{{etcd_max_snapshots}}" \
-  --max-wals "{{etcd_max_wals}}"
+  --max-wals "{{etcd_max_wals}}" \
+  --cors "{{etcd_cors}}"
 
 Restart=on-failure
 RestartSec=5
