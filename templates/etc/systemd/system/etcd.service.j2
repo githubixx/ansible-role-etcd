@@ -27,6 +27,7 @@ ExecStart={{etcd_bin_dir}}/etcd \
   --initial-cluster {{cluster_hosts()}} \
   --initial-cluster-state {{etcd_initial_cluster_state}} \
   --data-dir {{etcd_data_dir}} \
+  --wal-dir {{etcd_wal_dir}} \
   --auto-compaction-retention {{etcd_auto_compaction_retention}}
 Restart=on-failure
 RestartSec=5

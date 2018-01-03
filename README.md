@@ -47,6 +47,8 @@ etcd_download_dir: "/opt/etcd"
 etcd_bin_dir: "/usr/local/bin"
 # etcd data directory (etcd database files so to say)
 etcd_data_dir: "/var/lib/etcd"
+# Dedicated wal directory ("" means no seperated WAL directory)
+etcd_wal_dir: ""
 # Auto compaction retention in hour. 0 means disable auto compaction.
 etcd_auto_compaction_retention: "0"
 
