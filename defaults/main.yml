@@ -1,19 +1,58 @@
 ---
-k8s_ca_conf_directory: /etc/k8s/certs
+# The directory from where to copy the K8s certificates. By default this
+# will expand to user's LOCAL $HOME (the user that run's "ansible-playbook ..."
+# plus "/k8s/certs". That means if the user's $HOME directory is e.g.
+# "/home/da_user" then "k8s_ca_conf_directory" will have a value of
+# "/home/da_user/k8s/certs".
+k8s_ca_conf_directory: "{{ '~/k8s/certs' | expanduser }}"
 
-etcd_version: 3.2.8
-etcd_client_port: 2379
-etcd_peer_port: 2380
-etcd_interface: tap0
-etcd_initial_cluster_token: etcd-cluster-0
-etcd_initial_cluster_state: new
-etcd_name: etcd_kubernetes
-etcd_conf_dir: /etc/etcd
-etcd_download_dir: /opt/etcd
-etcd_bin_dir: /usr/local/bin
-etcd_data_dir: /var/lib/etcd
+# etcd version
+etcd_version: "3.2.13"
+# Port where etcd listening for clients
+etcd_client_port: "2379"
+# Port where etcd is listening for it's peer's
+etcd_peer_port: "2380"
+# Interface to bind etcd ports to
+etcd_interface: "tap0"
+# Initial cluster token for the etcd cluster during bootstrap.
+etcd_initial_cluster_token: "etcd-cluster-0"
+# Initial cluster state ('new' or 'existing')
+etcd_initial_cluster_state: "new"
+# Directroy for etcd configuration
+etcd_conf_dir: "/etc/etcd"
+# Directory to store downloaded etcd archive
+# Should not be deleted to avoid downloading over and over again
+etcd_download_dir: "/opt/etcd"
+# Directroy to store etcd binaries
+etcd_bin_dir: "/usr/local/bin"
+# etcd data directory (etcd database files so to say)
+etcd_data_dir: "/var/lib/etcd"
+# Dedicated wal directory ("" means no seperated WAL directory)
+etcd_wal_dir: ""
+# Auto compaction retention in hour. 0 means disable auto compaction.
+etcd_auto_compaction_retention: "0"
+# Number of committed transactions to trigger a snapshot to disk
+etcd_snapshot_count: "100000"
+# Time (in milliseconds) of a heartbeat interval
+etcd_heartbeat_interval: "100"
+# Time (in milliseconds) for an election to timeout. See tuning documentation for details
+etcd_election_timeout: "1000"
+# Maximum number of snapshot files to retain (0 is unlimited)
+etcd_max_snapshots: "5"
+# Maximum number of wal files to retain (0 is unlimited)
+etcd_max_wals: "5"
+# Comma-separated whitelist of origins for CORS (cross-origin resource sharing)
+etcd_cors: ""
+# Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
+etcd_quota_backend_bytes: "0"
+# Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
+etcd_log_package_levels: ""
+# Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
+etcd_log_output: "default"
+
+# Certificate authority and certificate files for etcd
 etcd_certificates:
-  - ca-etcd.pem
-  - ca-etcd-key.pem
-  - cert-etcd.pem
-  - cert-etcd-key.pem
+  - ca-etcd.pem        # client server TLS trusted CA key file/peer server TLS trusted CA file
+  - ca-etcd-key.pem    # CA key file
+  - cert-etcd.pem      # peer server TLS cert file
+  - cert-etcd-key.pem  # peer server TLS key file
