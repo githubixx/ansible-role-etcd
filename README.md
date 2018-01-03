@@ -55,6 +55,8 @@ etcd_auto_compaction_retention: "0"
 etcd_snapshot_count: "100000"
 # Time (in milliseconds) of a heartbeat interval
 etcd_heartbeat_interval: "100"
+# Time (in milliseconds) for an election to timeout. See tuning documentation for details
+etcd_election_timeout: "1000"
 
 # Certificate authority and certificate files for etcd 
 etcd_certificates:
