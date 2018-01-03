@@ -34,7 +34,8 @@ ExecStart={{etcd_bin_dir}}/etcd \
   --election-timeout "{{etcd_election_timeout}}" \
   --max-snapshots "{{etcd_max_snapshots}}" \
   --max-wals "{{etcd_max_wals}}" \
-  --cors "{{etcd_cors}}"
+  --cors "{{etcd_cors}}" \
+  --quota-backend-bytes "{{etcd_quota_backend_bytes}}"
 
 Restart=on-failure
 RestartSec=5

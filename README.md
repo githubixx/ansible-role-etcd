@@ -63,6 +63,8 @@ etcd_max_snapshots: "5"
 etcd_max_wals: "5"
 # Comma-separated whitelist of origins for CORS (cross-origin resource sharing)
 etcd_cors: ""
+# Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
+etcd_quota_backend_bytes: "0"
 
 # Certificate authority and certificate files for etcd 
 etcd_certificates:
