@@ -67,6 +67,8 @@ etcd_cors: ""
 etcd_quota_backend_bytes: "0"
 # Enable debug-level logging for etcd
 etcd_debug: "false"
+# Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
+etcd_log_package_levels: ""
 
 # Certificate authority and certificate files for etcd 
 etcd_certificates:
