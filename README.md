@@ -59,6 +59,8 @@ etcd_heartbeat_interval: "100"
 etcd_election_timeout: "1000"
 # Maximum number of snapshot files to retain (0 is unlimited)
 etcd_max_snapshots: "5"
+# Maximum number of wal files to retain (0 is unlimited)
+etcd_max_wals: "5"
 
 # Certificate authority and certificate files for etcd 
 etcd_certificates:
