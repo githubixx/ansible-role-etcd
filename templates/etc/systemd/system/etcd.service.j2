@@ -29,7 +29,8 @@ ExecStart={{etcd_bin_dir}}/etcd \
   --data-dir "{{etcd_data_dir}}" \
   --wal-dir "{{etcd_wal_dir}}" \
   --auto-compaction-retention "{{etcd_auto_compaction_retention}}" \
-  --snapshot-count "{{etcd_snapshot_count}}"
+  --snapshot-count "{{etcd_snapshot_count}}" \
+  --heartbeat-interval "{{etcd_heartbeat_interval}}"
 
 Restart=on-failure
 RestartSec=5

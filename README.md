@@ -53,6 +53,8 @@ etcd_wal_dir: ""
 etcd_auto_compaction_retention: "0"
 # Number of committed transactions to trigger a snapshot to disk
 etcd_snapshot_count: "100000"
+# Time (in milliseconds) of a heartbeat interval
+etcd_heartbeat_interval: "100"
 
 # Certificate authority and certificate files for etcd 
 etcd_certificates:
