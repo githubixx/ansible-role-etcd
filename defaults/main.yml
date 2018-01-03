@@ -1,5 +1,10 @@
 ---
-k8s_ca_conf_directory: /etc/k8s/certs
+# The directory from where to copy the K8s certificates. By default this
+# will expand to user's LOCAL $HOME (the user that run's "ansible-playbook ..."
+# plus "/k8s/certs". That means if the user's $HOME directory is e.g.
+# "/home/da_user" then "k8s_ca_conf_directory" will have a value of
+# "/home/da_user/k8s/certs".
+k8s_ca_conf_directory: "{{ '~/k8s/certs' | expanduser }}"
 
 etcd_version: 3.2.8
 etcd_client_port: 2379
