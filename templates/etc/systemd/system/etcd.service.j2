@@ -28,7 +28,9 @@ ExecStart={{etcd_bin_dir}}/etcd \
   --initial-cluster-state "{{etcd_initial_cluster_state}}" \
   --data-dir "{{etcd_data_dir}}" \
   --wal-dir "{{etcd_wal_dir}}" \
-  --auto-compaction-retention "{{etcd_auto_compaction_retention}}"
+  --auto-compaction-retention "{{etcd_auto_compaction_retention}}" \
+  --snapshot-count "{{etcd_snapshot_count}}"
+
 Restart=on-failure
 RestartSec=5
 Type=notify
