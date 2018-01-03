@@ -35,7 +35,8 @@ ExecStart={{etcd_bin_dir}}/etcd \
   --max-snapshots "{{etcd_max_snapshots}}" \
   --max-wals "{{etcd_max_wals}}" \
   --cors "{{etcd_cors}}" \
-  --quota-backend-bytes "{{etcd_quota_backend_bytes}}"
+  --quota-backend-bytes "{{etcd_quota_backend_bytes}}" \
+  --debug "{{etcd_debug}}"
 
 Restart=on-failure
 RestartSec=5

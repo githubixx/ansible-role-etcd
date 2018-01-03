@@ -65,6 +65,8 @@ etcd_max_wals: "5"
 etcd_cors: ""
 # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
 etcd_quota_backend_bytes: "0"
+# Enable debug-level logging for etcd
+etcd_debug: "false"
 
 # Certificate authority and certificate files for etcd 
 etcd_certificates:
