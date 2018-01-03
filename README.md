@@ -69,6 +69,8 @@ etcd_quota_backend_bytes: "0"
 etcd_debug: "false"
 # Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
 etcd_log_package_levels: ""
+# Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
+etcd_log_output: "default"
 
 # Certificate authority and certificate files for etcd 
 etcd_certificates:
