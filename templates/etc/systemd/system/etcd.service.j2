@@ -1,8 +1,11 @@
-{% macro cluster_hosts() %}
+#jinja2: trim_blocks:False
+{%- macro cluster_hosts() -%}
 {%- for host in groups['k8s_etcd'] -%}
 {{hostvars[host]['ansible_hostname']}}=https://{{hostvars[host]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}}{% if not loop.last %},{% endif %}
 {%- endfor -%} 
-{% endmacro %}
+{%- endmacro -%}
+
+{%- set x=etcd_settings.__setitem__('initial-cluster',cluster_hosts()) -%}
 
 [Unit]
 Description=etcd
@@ -10,35 +13,9 @@ Documentation=https://github.com/coreos
 
 [Service]
 ExecStart={{etcd_bin_dir}}/etcd \
-  --name "{{ansible_hostname}}" \
-  --cert-file "{{etcd_conf_dir}}/cert-etcd.pem" \
-  --key-file "{{etcd_conf_dir}}/cert-etcd-key.pem" \
-  --peer-cert-file "{{etcd_conf_dir}}/cert-etcd.pem" \
-  --peer-key-file "{{etcd_conf_dir}}/cert-etcd-key.pem" \
-  --peer-trusted-ca-file "{{etcd_conf_dir}}/ca-etcd.pem" \
-  --peer-client-cert-auth \
-  --client-cert-auth \
-  --trusted-ca-file "{{etcd_conf_dir}}/ca-etcd.pem" \
-  --initial-advertise-peer-urls "https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}}" \
-  --listen-peer-urls "https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}}" \
-  --listen-client-urls "https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_client_port}},http://127.0.0.1:{{etcd_client_port}}" \
-  --advertise-client-urls "https://{{hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_client_port}}" \
-  --initial-cluster-token "{{etcd_initial_cluster_token}}" \
-  --initial-cluster "{{cluster_hosts()}}" \
-  --initial-cluster-state "{{etcd_initial_cluster_state}}" \
-  --data-dir "{{etcd_data_dir}}" \
-  --wal-dir "{{etcd_wal_dir}}" \
-  --auto-compaction-retention "{{etcd_auto_compaction_retention}}" \
-  --snapshot-count "{{etcd_snapshot_count}}" \
-  --heartbeat-interval "{{etcd_heartbeat_interval}}" \
-  --election-timeout "{{etcd_election_timeout}}" \
-  --max-snapshots "{{etcd_max_snapshots}}" \
-  --max-wals "{{etcd_max_wals}}" \
-  --cors "{{etcd_cors}}" \
-  --quota-backend-bytes "{{etcd_quota_backend_bytes}}" \
-  --log-package-levels "{{etcd_log_package_levels}}" \
-  --log-output "{{etcd_log_output}}"
-
+{%- for setting in etcd_settings|sort %}
+  --{{setting}}="{{etcd_settings[setting]}}" {% if not loop.last %}\{% endif %}
+{%- endfor %}
 Restart=on-failure
 RestartSec=5
 Type=notify

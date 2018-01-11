@@ -70,6 +70,13 @@
   tags:
     - etcd
 
+- name: Combine etcd_settings and etcd_settings_user (if defined)
+  set_fact:
+    etcd_settings: "{{etcd_settings | combine(etcd_settings_user|default({})) }}"
+  tags:
+    - etcd
+    - etcd-systemd
+
 - name: Create systemd unit file
   template:
     src: etc/systemd/system/etcd.service.j2
@@ -81,6 +88,7 @@
     - reload systemd
   tags:
     - etcd
+    - etcd-systemd
 
 - meta: flush_handlers
 
