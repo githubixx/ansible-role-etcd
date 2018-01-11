@@ -12,11 +12,15 @@ I tag every release and try to stay with [semantic versioning](http://semver.org
 
 Changelog
 ---------
+**r3.0.0_v3.2.13**
+
+- introduce flexible etcd parameter settings via `etcd_settings/etcd_settings_user` variables. This way all flags/settings of the current and future etcd version's can be set and there is no need to adjust the etcd systemd service file template with every release
+
 **r2.0.0_v3.2.13**
 
 - updated etcd to 3.2.13
 - added new etcd flags (see role variables below)
-- change default for `k8s_ca_conf_directory` (see role variables below). If you already defined `k8s_ca_conf_directory` by yourself in `group_vars/k8s.yml` or `group_vars/all.yml` nothing changes for you.
+- change default for `k8s_ca_conf_directory` (see role variables below). If you already defined `k8s_ca_conf_directory` by yourself in `group_vars/k8s.yml` or `group_vars/all.yml` nothing changes for you
 - more documentation for role variables
 
 **r1.0.0_v3.2.8**
@@ -43,7 +47,7 @@ k8s_ca_conf_directory: "{{ '~/k8s/certs' | expanduser }}"
 
 # etcd version
 etcd_version: "3.2.13"
-# Port where etcd is listening for clients
+# Port where etcd listening for clients
 etcd_client_port: "2379"
 # Port where etcd is listening for it's peer's
 etcd_peer_port: "2380"
@@ -84,13 +88,54 @@ etcd_quota_backend_bytes: "0"
 etcd_log_package_levels: ""
 # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
 etcd_log_output: "default"
+# Enable client cert authentication
+etcd_client_cert_auth: "true"
+# Enable peer client cert authentication
+etcd_peer_client_cert_auth: "true"
 
-# Certificate authority and certificate files for etcd 
+etcd_settings:
+  "name": "{{ansible_hostname}}"
+  "cert-file": "{{etcd_conf_dir}}/cert-etcd.pem"
+  "key-file": "{{etcd_conf_dir}}/cert-etcd-key.pem"
+  "peer-cert-file": "{{etcd_conf_dir}}/cert-etcd.pem"
+  "peer-key-file": "{{etcd_conf_dir}}/cert-etcd-key.pem"
+  "peer-trusted-ca-file": "{{etcd_conf_dir}}/ca-etcd.pem"
+  "peer-client-cert-auth": "{{etcd_peer_client_cert_auth}}"
+  "client-cert-auth": "{{etcd_client_cert_auth}}"
+  "trusted-ca-file": "{{etcd_conf_dir}}/ca-etcd.pem"
+  "advertise-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port}}"
+  "initial-advertise-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
+  "listen-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
+  "listen-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port + ',http://127.0.0.1:' + etcd_client_port}}"
+  "initial-cluster-token": "{{etcd_initial_cluster_token}}"
+  "initial-cluster-state": "{{etcd_initial_cluster_state}}"
+  "data-dir": "{{etcd_data_dir}}"
+  "wal-dir": "{{etcd_wal_dir}}"
+  "auto-compaction-retention": "{{etcd_auto_compaction_retention}}"
+  "snapshot-count": "{{etcd_snapshot_count}}"
+  "heartbeat-interval": "{{etcd_heartbeat_interval}}"
+  "election-timeout": "{{etcd_election_timeout}}"
+  "max-snapshots": "{{etcd_max_snapshots}}"
+  "max-wals": "{{etcd_max_wals}}"
+  "cors": "{{etcd_cors}}"
+  "quota-backend-bytes": "{{etcd_quota_backend_bytes}}"
+  "log-package-levels": "{{etcd_log_package_levels}}"
+  "log-output": "{{etcd_log_output}}"
+
+# Certificate authority and certificate files for etcd
 etcd_certificates:
   - ca-etcd.pem        # client server TLS trusted CA key file/peer server TLS trusted CA file
   - ca-etcd-key.pem    # CA key file
   - cert-etcd.pem      # peer server TLS cert file
   - cert-etcd-key.pem  # peer server TLS key file
+```
+
+The etcd default settings defined in `etcd_settings` can be overriden by defining a variable called `etcd_settings_user`. You can also add additional settings by using this variable. E.g. to override the default value for `log-output` seting and add a new setting like `grpc-keepalive-min-time` add the following settings to `group_vars/k8s.yml`:
+
+```
+etcd_settings_user:
+  "log-output": "stdout"
+  "grpc-keepalive-min-time": "10s"
 ```
 
 Example Playbook
