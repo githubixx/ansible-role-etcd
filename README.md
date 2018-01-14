@@ -65,6 +65,11 @@ etcd_download_dir: "/opt/etcd"
 # Directroy to store etcd binaries
 etcd_bin_dir: "/usr/local/bin"
 
+# etcd flags/settings. This parameters are directly passed to "etcd" daemon during startup.
+# To see all possible settings/flags either run "etcd --help" or have a look at the
+# documentation. The dictionary keys below are just the flag names without "--". E.g.
+# the first "name" flag below will be passed as "--name=whatever-hostname" to "etcd"
+# daemon.
 etcd_settings:
   "name": "{{ansible_hostname}}"
   "cert-file": "{{etcd_conf_dir}}/cert-etcd.pem"
