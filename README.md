@@ -12,6 +12,11 @@ I tag every release and try to stay with [semantic versioning](http://semver.org
 
 Changelog
 ---------
+
+**r4.0.0_v3.2.13**
+
+- fix bug `etcd_data_dir` variable missing
+
 **r3.1.0_v3.2.13**
 
 - move some variables into etcd_settings dictionary. As they're not needed outside of the etcd role there is no need to keep them seperate.
@@ -64,6 +69,8 @@ etcd_conf_dir: "/etc/etcd"
 etcd_download_dir: "/opt/etcd"
 # Directroy to store etcd binaries
 etcd_bin_dir: "/usr/local/bin"
+# etcd data directory (etcd database files so to say)
+etcd_data_dir: "/var/lib/etcd"
 
 # etcd flags/settings. This parameters are directly passed to "etcd" daemon during startup.
 # To see all possible settings/flags either run "etcd --help" or have a look at the
@@ -86,7 +93,7 @@ etcd_settings:
   "listen-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port + ',http://127.0.0.1:' + etcd_client_port}}"
   "initial-cluster-token": "etcd-cluster-0" # Initial cluster token for the etcd cluster during bootstrap.
   "initial-cluster-state": "new" # Initial cluster state ('new' or 'existing')
-  "data-dir": "/var/lib/etcd" # etcd data directory (etcd database files so to say)
+  "data-dir": "{{etcd_data_dir}}" # etcd data directory (etcd database files so to say)
   "wal-dir": "" # Dedicated wal directory ("" means no seperated WAL directory)
   "auto-compaction-retention": "0" # Auto compaction retention in hour. 0 means disable auto compaction.
   "snapshot-count": "100000" # Number of committed transactions to trigger a snapshot to disk
