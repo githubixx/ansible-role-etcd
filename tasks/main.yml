@@ -42,7 +42,7 @@
 - name: Downloading official etcd release
   get_url:
     url: https://github.com/coreos/etcd/releases/download/v{{etcd_version}}/etcd-v{{etcd_version}}-linux-amd64.tar.gz
-    dest: "{{etcd_download_dir}}"
+    dest: "{{etcd_download_dir}}/etcd-v{{etcd_version}}-linux-amd64.tar.gz"
     mode: 0755
   tags:
     - etcd
