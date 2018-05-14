@@ -13,6 +13,11 @@ I tag every release and try to stay with [semantic versioning](http://semver.org
 Changelog
 ---------
 
+**r4.1.0_v3.2.13**
+
+- use full path for destination in download etcd task
+- chown/chgrp to "root" user for unarchived etcd files
+
 **r4.0.0_v3.2.13**
 
 - fix bug `etcd_data_dir` variable missing
