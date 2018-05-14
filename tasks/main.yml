@@ -52,6 +52,8 @@
     src: "{{etcd_download_dir}}/etcd-v{{etcd_version}}-linux-amd64.tar.gz"
     dest: "{{etcd_download_dir}}/"
     remote_src: yes
+    owner: "root"
+    group: "root"
     creates: "{{etcd_download_dir}}/etcd-v{{etcd_version}}-linux-amd64/etcd"
   tags:
     - etcd
