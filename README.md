@@ -13,6 +13,10 @@ I tag every release and try to stay with [semantic versioning](http://semver.org
 Changelog
 ---------
 
+**r4.2.0_v3.2.13**
+
+- changed `listen-client-urlsi` scheme for 127.0.0.1 from http to https
+
 **r4.1.0_v3.2.13**
 
 - use full path for destination in download etcd task
@@ -95,7 +99,7 @@ etcd_settings:
   "advertise-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port}}"
   "initial-advertise-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
   "listen-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
-  "listen-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port + ',http://127.0.0.1:' + etcd_client_port}}"
+  "listen-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port + ',https://127.0.0.1:' + etcd_client_port}}"
   "initial-cluster-token": "etcd-cluster-0" # Initial cluster token for the etcd cluster during bootstrap.
   "initial-cluster-state": "new" # Initial cluster state ('new' or 'existing')
   "data-dir": "{{etcd_data_dir}}" # etcd data directory (etcd database files so to say)
