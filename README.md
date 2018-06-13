@@ -15,7 +15,7 @@ Changelog
 
 **r4.2.0_v3.2.13**
 
-- changed `listen-client-urlsi` scheme for 127.0.0.1 from http to https
+- changed `listen-client-urls` scheme for 127.0.0.1 from http to https
 
 **r4.1.0_v3.2.13**
 
