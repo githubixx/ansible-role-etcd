@@ -13,6 +13,10 @@ I tag every release and try to stay with [semantic versioning](http://semver.org
 Changelog
 ---------
 
+**r4.2.0_v3.2.18**
+
+- upgrade to etcd v3.2.18 (latest supported version by Kubernetes v1.11.x)
+
 **r4.2.0_v3.2.13**
 
 - changed `listen-client-urls` scheme for 127.0.0.1 from http to https
@@ -64,7 +68,7 @@ Role Variables
 k8s_ca_conf_directory: "{{ '~/k8s/certs' | expanduser }}"
 
 # etcd version
-etcd_version: "3.2.13"
+etcd_version: "3.2.18"
 # Port where etcd listening for clients
 etcd_client_port: "2379"
 # Port where etcd is listening for it's peer's
