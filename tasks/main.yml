@@ -1,4 +1,7 @@
 ---
+- name: Gather instance facts
+  setup:
+
 - name: Create etcd config directory
   file:
     path: "{{etcd_conf_dir}}"

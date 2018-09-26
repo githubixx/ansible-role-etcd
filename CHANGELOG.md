@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+**r6.0.0_v3.2.18**
+
+- upgrade to `etcd` v3.2.18 (latest version supported/recommended by Kubernetes)
+
 **r5.0.0_v3.2.13**
 
 - rename variable `k8s_ca_conf_directory` to `etcd_ca_conf_directory`. As this role can be used standalone with Kubernetes (as I do in the blog post mentioned above) the former name makes no sense. For people who used this role before just set `etcd_ca_conf_directory: "{{k8s_ca_conf_directory}}"` in `group_vars/all.yml` and you have the same behavior as before (granted that you have `k8s_ca_conf_directory` also set if you don't use the default values ;-) .
