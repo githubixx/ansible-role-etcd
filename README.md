@@ -1,7 +1,7 @@
 ansible-role-etcd
 =================
 
-This Ansible playbook is used in [Kubernetes the not so hard way with Ansible (at Scaleway) - Part 5 - etcd cluster](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-at-scaleway-part-5/). Have a look there for more information.
+This Ansible playbook is used in [Kubernetes the not so hard way with Ansible - etcd cluster](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-etcd/). Have a look there for more information.
 
 Installes a etcd cluster. HINT: This playbook does NOT reload or restart the etcd cluster nodes after the systemd service file was changed! This is intentional! It would be a very bad idea to restart all etcd nodes at the same time. So if the `etcd.service` file has changed restart/reload etcd by hand one node after the other and check log output if the node joined the cluster again afterwards! As a side node: The script will issue a `systemctl daemon-reload` after the etcd service file was changed so that at least systemd is aware of the changed file and you don't take care about that. So a reboot of a etcd node would also active the new configuration.
 
@@ -13,59 +13,23 @@ I tag every release and try to stay with [semantic versioning](http://semver.org
 Changelog
 ---------
 
-**r4.2.0_v3.2.18**
-
-- upgrade to etcd v3.2.18 (latest supported version by Kubernetes v1.11.x)
-
-**r4.2.0_v3.2.13**
-
-- changed `listen-client-urls` scheme for 127.0.0.1 from http to https
-
-**r4.1.0_v3.2.13**
-
-- use full path for destination in download etcd task
-- chown/chgrp to "root" user for unarchived etcd files
-
-**r4.0.0_v3.2.13**
-
-- fix bug `etcd_data_dir` variable missing
-
-**r3.1.0_v3.2.13**
-
-- move some variables into etcd_settings dictionary. As they're not needed outside of the etcd role there is no need to keep them seperate.
-
-**r3.0.0_v3.2.13**
-
-- introduce flexible etcd parameter settings via `etcd_settings/etcd_settings_user` variables. This way all flags/settings of the current and future etcd version's can be set and there is no need to adjust the etcd systemd service file template with every release
-
-**r2.0.0_v3.2.13**
-
-- updated etcd to 3.2.13
-- added new etcd flags (see role variables below)
-- change default for `k8s_ca_conf_directory` (see role variables below). If you already defined `k8s_ca_conf_directory` by yourself in `group_vars/k8s.yml` or `group_vars/all.yml` nothing changes for you
-- more documentation for role variables
-
-**r1.0.0_v3.2.8**
-
-- updated etcd to 3.2.8
-- rename `local_cert_dir` to `k8s_ca_conf_directory` and change default location
-- smaller changes needed for Kubernetes v1.8
+see [CHANGELOG.md](https://github.com/githubixx/ansible-role-etcd/blob/master/CHANGELOG.md)
 
 Requirements
 ------------
 
-This playbook requires that you already created some certificates for etcd (see [Kubernetes the not so hard way with Ansible (at Scaleway) - Part 4 - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-at-scaleway-part-4/)). The playbook searches the certificates in `k8s_ca_conf_directory` on the host this playbook runs.
+This playbook requires that you already created some certificates for etcd (see [Kubernetes the not so hard way with Ansible - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-certificate-authority/)). The playbook searches the certificates in `etcd_ca_conf_directory` on the host this playbook runs.
 
 Role Variables
 --------------
 
 ```
-# The directory from where to copy the K8s certificates. By default this
+# The directory from where to copy the etcd certificates. By default this
 # will expand to user's LOCAL $HOME (the user that run's "ansible-playbook ..."
-# plus "/k8s/certs". That means if the user's $HOME directory is e.g.
-# "/home/da_user" then "k8s_ca_conf_directory" will have a value of
-# "/home/da_user/k8s/certs".
-k8s_ca_conf_directory: "{{ '~/k8s/certs' | expanduser }}"
+# plus "/etcd-certificates". That means if the user's $HOME directory is e.g.
+# "/home/da_user" then "etcd_ca_conf_directory" will have a value of
+# "/home/da_user/etcd-certificates".
+etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 
 # etcd version
 etcd_version: "3.2.18"
