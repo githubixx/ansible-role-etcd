@@ -13,7 +13,7 @@ I tag every release and try to stay with [semantic versioning](http://semver.org
 Changelog
 ---------
 
-see [CHANGELOG.md](https://github.com/githubixx/ansible-role-etcd/CHANGELOG.md)
+see [CHANGELOG.md](https://github.com/githubixx/ansible-role-etcd/blob/master/CHANGELOG.md)
 
 Requirements
 ------------
