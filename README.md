@@ -13,6 +13,10 @@ I tag every release and try to stay with [semantic versioning](http://semver.org
 Changelog
 ---------
 
+**r5.0.0_v3.2.13**
+
+- rename variable `k8s_ca_conf_directory` to `etcd_ca_conf_directory`. As this role can be used standalone with Kubernetes (as I do in the blog post mentioned above) the former name makes no sense. For people who used this role before just set `etcd_ca_conf_directory: "{{k8s_ca_conf_directory}}"` in `group_vars/all.yml` and you have the same behavior as before (granted that you have `k8s_ca_conf_directory` also set if you don't use the default values ;-) .
+
 **r4.2.1_v3.2.13**
 
 - works with Ubuntu 18.04
@@ -55,18 +59,18 @@ Changelog
 Requirements
 ------------
 
-This playbook requires that you already created some certificates for etcd (see [Kubernetes the not so hard way with Ansible - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-certificate-authority/)). The playbook searches the certificates in `k8s_ca_conf_directory` on the host this playbook runs.
+This playbook requires that you already created some certificates for etcd (see [Kubernetes the not so hard way with Ansible - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-certificate-authority/)). The playbook searches the certificates in `etcd_ca_conf_directory` on the host this playbook runs.
 
 Role Variables
 --------------
 
 ```
-# The directory from where to copy the K8s certificates. By default this
+# The directory from where to copy the etcd certificates. By default this
 # will expand to user's LOCAL $HOME (the user that run's "ansible-playbook ..."
-# plus "/k8s/certs". That means if the user's $HOME directory is e.g.
-# "/home/da_user" then "k8s_ca_conf_directory" will have a value of
-# "/home/da_user/k8s/certs".
-k8s_ca_conf_directory: "{{ '~/k8s/certs' | expanduser }}"
+# plus "/etcd-certificates". That means if the user's $HOME directory is e.g.
+# "/home/da_user" then "etcd_ca_conf_directory" will have a value of
+# "/home/da_user/etcd-certificates".
+etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 
 # etcd version
 etcd_version: "3.2.13"
