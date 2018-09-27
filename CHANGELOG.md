@@ -3,7 +3,7 @@ Changelog
 
 **r6.0.0_v3.2.18**
 
-- upgrade to `etcd` v3.2.18 (latest version supported/recommended by Kubernetes)
+- upgrade to `etcd` v3.2.18 (latest version supported/recommended for Kubernetes v1.11)
 
 **r5.0.0_v3.2.13**
 
