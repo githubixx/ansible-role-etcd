@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+**8.0.0+3.3.13**
+
+- upgrade to `etcd` v3.3.13 (latest version supported/recommended for Kubernetes v1.14)
+
 **7.0.0+3.2.24**
 
 - use correct semantic versioning as described in https://semver.org. Needed for Ansible Galaxy importer as it now insists on using semantic versioning.
