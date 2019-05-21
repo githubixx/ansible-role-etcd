@@ -32,7 +32,7 @@ Role Variables
 etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 
 # etcd version
-etcd_version: "3.2.24"
+etcd_version: "3.3.13"
 # Port where etcd listening for clients
 etcd_client_port: "2379"
 # Port where etcd is listening for it's peer's
