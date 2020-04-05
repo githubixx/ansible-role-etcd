@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+**9.1.0+3.4.7**
+
+- enable v2 API again like in `etcd` v3.3.x. `etcd` v3.4.x disables v2 API by default (see https://github.com/etcd-io/etcd/blob/master/Documentation/upgrades/upgrade_3_4.md#make-etcd---enable-v2false-default). v2 API is needed for `flannel` e.g.
+
 **Removal of old tags**
 
 Removed old tags below as the format is not supported by Ansible Galaxy and also not compatible with semver.org:
