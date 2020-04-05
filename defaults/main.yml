@@ -48,7 +48,6 @@ etcd_settings:
   "election-timeout": "1000" # Time (in milliseconds) for an election to timeout. See tuning documentation for details
   "max-snapshots": "5" # Maximum number of snapshot files to retain (0 is unlimited)
   "max-wals": "5" # Maximum number of wal files to retain (0 is unlimited)
-  "cors": "" # Comma-separated whitelist of origins for CORS (cross-origin resource sharing)
   "quota-backend-bytes": "0" # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
   "log-package-levels": "" # Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
   "log-outputs": "default" # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
