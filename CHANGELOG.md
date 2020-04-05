@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+**9.0.0+3.4.7**
+
+- upgrade to `etcd` v3.4.7 (latest version supported/recommended for Kubernetes v1.17)
+- rename deprecated log-output flag to log-outputs
+- remove flag `--cors=""` as this causes `etcd` to fail to start
+- set `--log-outputs="systemd/journal"` and add flag `--logger="zap"` (for structured logging) as mentioned in [CHANGELOG-3.4](https://github.com/etcd-io/etcd/blob/master/CHANGELOG-3.4.md#etcd-server-4)
+
 **8.0.0+3.3.13**
 
 - upgrade to `etcd` v3.3.13 (latest version supported/recommended for Kubernetes v1.14)
