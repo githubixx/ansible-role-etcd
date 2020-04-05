@@ -82,6 +82,7 @@ etcd_settings:
   "log-package-levels": "" # Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
   "logger": "zap" # Specify ‘zap’ for structured logging or ‘capnslog’.
   "log-outputs": "systemd/journal" # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
+  "enable-v2": "true" # enable v2 API to stay compatible with previous etcd 3.3.x (needed for flannel e.g.)
 
 # Certificate authority and certificate files for etcd
 etcd_certificates:
