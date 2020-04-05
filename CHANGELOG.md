@@ -1,6 +1,24 @@
 Changelog
 ---------
 
+**Removal of old tags**
+
+Removed old tags below as the format is not supported by Ansible Galaxy and also not compatible with semver.org:
+
+```
+r1.0.0_v3.2.8
+r2.0.0_v3.2.13
+r3.0.0_v3.2.13
+r3.1.0_v3.2.13
+r4.0.0_v3.2.13
+r4.1.0_v3.2.13
+r4.2.0_v3.2.13
+r4.2.1_v3.2.13
+r5.0.0_v3.2.13
+r6.0.0_v3.2.18
+r6.0.1_v3.2.24
+```
+
 **9.0.0+3.4.7**
 
 - upgrade to `etcd` v3.4.7 (latest version supported/recommended for Kubernetes v1.17)
