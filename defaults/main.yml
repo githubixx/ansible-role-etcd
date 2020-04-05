@@ -51,7 +51,7 @@ etcd_settings:
   "cors": "" # Comma-separated whitelist of origins for CORS (cross-origin resource sharing)
   "quota-backend-bytes": "0" # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
   "log-package-levels": "" # Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
-  "log-output": "default" # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
+  "log-outputs": "default" # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
 
 # Certificate authority and certificate files for etcd
 etcd_certificates:
