@@ -1,6 +1,19 @@
 Changelog
 ---------
 
+**10.0.0+3.4.7**
+
+- changed some default values for `etcd_settings`. `(cert|key)-file` and `peer-(cert|key)-file` now uses different certificates:
+
+```
+"cert-file": "{{etcd_conf_dir}}/cert-etcd-server.pem"                                                                                                                                                                               
+"key-file": "{{etcd_conf_dir}}/cert-etcd-server-key.pem"                                                                                                                                                                            
+"peer-cert-file": "{{etcd_conf_dir}}/cert-etcd-peer.pem"                                                                                                                                                                            
+"peer-key-file": "{{etcd_conf_dir}}/cert-etcd-peer-key.pem"
+```
+
+Therefore `etcd_certificates` list was also adjusted accordingly.
+
 **9.1.0+3.4.7**
 
 - enable v2 API again like in `etcd` v3.3.x. `etcd` v3.4.x disables v2 API by default (see https://github.com/etcd-io/etcd/blob/master/Documentation/upgrades/upgrade_3_4.md#make-etcd---enable-v2false-default). v2 API is needed for `flannel` e.g.
