@@ -6,9 +6,9 @@ Changelog
 - changed some default values for `etcd_settings`. `(cert|key)-file` and `peer-(cert|key)-file` now uses different certificates:
 
 ```
-"cert-file": "{{etcd_conf_dir}}/cert-etcd-server.pem"                                                                                                                                                                               
-"key-file": "{{etcd_conf_dir}}/cert-etcd-server-key.pem"                                                                                                                                                                            
-"peer-cert-file": "{{etcd_conf_dir}}/cert-etcd-peer.pem"                                                                                                                                                                            
+"cert-file": "{{etcd_conf_dir}}/cert-etcd-server.pem"
+"key-file": "{{etcd_conf_dir}}/cert-etcd-server-key.pem"
+"peer-cert-file": "{{etcd_conf_dir}}/cert-etcd-peer.pem"
 "peer-key-file": "{{etcd_conf_dir}}/cert-etcd-peer-key.pem"
 ```
 
