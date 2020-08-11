@@ -8,7 +8,7 @@ Installes a etcd cluster. HINT: This playbook does NOT reload or restart the etc
 Versions
 --------
 
-I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `7.0.0+3.2.24` means this is release `7.0.0` of this role and it's meant to be used with etcd version `3.2.24` (but should we newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
+I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `10.0.0+3.4.7` means this is release `10.0.0` of this role and it's meant to be used with etcd version `3.4.7` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
 
 Changelog
 ---------
@@ -18,7 +18,7 @@ see [CHANGELOG.md](https://github.com/githubixx/ansible-role-etcd/blob/master/CH
 Requirements
 ------------
 
-This playbook requires that you already created some certificates for etcd (see [Kubernetes the not so hard way with Ansible - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-certificate-authority/)). The playbook searches the certificates in `etcd_ca_conf_directory` on the host this playbook runs.
+This playbook requires that you already created some certificates for `etcd` (see [Kubernetes the not so hard way with Ansible - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-certificate-authority/) and Ansible role [kubernetes-ca](https://galaxy.ansible.com/githubixx/kubernetes-ca)). The playbook searches the certificates in `etcd_ca_conf_directory` on the host this playbook runs.
 
 Role Variables
 --------------
@@ -49,21 +49,16 @@ etcd_bin_dir: "/usr/local/bin"
 # etcd data directory (etcd database files so to say)
 etcd_data_dir: "/var/lib/etcd"
 
-# etcd flags/settings. This parameters are directly passed to "etcd" daemon during startup.
-# To see all possible settings/flags either run "etcd --help" or have a look at the
-# documentation. The dictionary keys below are just the flag names without "--". E.g.
-# the first "name" flag below will be passed as "--name=whatever-hostname" to "etcd"
-# daemon.
 etcd_settings:
   "name": "{{ansible_hostname}}"
-  "cert-file": "{{etcd_conf_dir}}/cert-etcd.pem"
-  "key-file": "{{etcd_conf_dir}}/cert-etcd-key.pem"
-  "peer-cert-file": "{{etcd_conf_dir}}/cert-etcd.pem"
-  "peer-key-file": "{{etcd_conf_dir}}/cert-etcd-key.pem"
+  "cert-file": "{{etcd_conf_dir}}/cert-etcd-server.pem"
+  "key-file": "{{etcd_conf_dir}}/cert-etcd-server-key.pem"
+  "trusted-ca-file": "{{etcd_conf_dir}}/ca-etcd.pem"
+  "peer-cert-file": "{{etcd_conf_dir}}/cert-etcd-peer.pem"
+  "peer-key-file": "{{etcd_conf_dir}}/cert-etcd-peer-key.pem"
   "peer-trusted-ca-file": "{{etcd_conf_dir}}/ca-etcd.pem"
   "peer-client-cert-auth": "true" # # Enable peer client cert authentication
   "client-cert-auth": "true" # Enable client cert authentication
-  "trusted-ca-file": "{{etcd_conf_dir}}/ca-etcd.pem"
   "advertise-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port}}"
   "initial-advertise-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
   "listen-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
@@ -86,13 +81,15 @@ etcd_settings:
 
 # Certificate authority and certificate files for etcd
 etcd_certificates:
-  - ca-etcd.pem        # client server TLS trusted CA key file/peer server TLS trusted CA file
-  - ca-etcd-key.pem    # CA key file
-  - cert-etcd.pem      # peer server TLS cert file
-  - cert-etcd-key.pem  # peer server TLS key file
+  - ca-etcd.pem               # certificate authority file
+  - ca-etcd-key.pem           # certificate authority key file
+  - cert-etcd-peer.pem        # peer TLS cert file
+  - cert-etcd-peer-key.pem    # peer TLS key file
+  - cert-etcd-server.pem      # server TLS cert file
+  - cert-etcd-server-key.pem  # server TLS key file
 ```
 
-The etcd default settings defined in `etcd_settings` can be overriden by defining a variable called `etcd_settings_user`. You can also add additional settings by using this variable. E.g. to override the default value for `log-output` seting and add a new setting like `grpc-keepalive-min-time` add the following settings to `group_vars/k8s.yml`:
+The `etcd` default settings defined in `etcd_settings` can be overriden by defining a variable called `etcd_settings_user`. You can also add additional settings by using this variable. E.g. to override the default value for `log-output` seting and add a new setting like `grpc-keepalive-min-time` add the following settings to `group_vars/k8s.yml`:
 
 ```
 etcd_settings_user:
