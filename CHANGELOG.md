@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+**10.1.0+3.4.14**
+
+- update `etcd` to `v3.4.14`
+- `etcd_data_dir` permissions changed to `0700`. Before the permissions were not set so in most cases that ended up with `0755`. This was needed because of https://github.com/etcd-io/etcd/blob/master/CHANGELOG-3.4.md#breaking-changes
+
 **10.0.0+3.4.7**
 
 - changed some default values for `etcd_settings`. `(cert|key)-file` and `peer-(cert|key)-file` now uses different certificates:

@@ -27,6 +27,7 @@
   file:
     path: "{{ etcd_data_dir }}"
     state: directory
+    mode: 0700
   tags:
     - etcd
 
