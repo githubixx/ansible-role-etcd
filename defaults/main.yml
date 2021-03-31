@@ -23,6 +23,8 @@ etcd_download_dir: "/opt/etcd"
 etcd_bin_dir: "/usr/local/bin"
 # etcd data directory (etcd database files so to say)
 etcd_data_dir: "/var/lib/etcd"
+# etcd architecture
+etcd_architecture: "amd64"
 
 etcd_settings:
   "name": "{{ansible_hostname}}"
