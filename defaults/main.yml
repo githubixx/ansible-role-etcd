@@ -23,6 +23,11 @@ etcd_download_dir: "/opt/etcd"
 etcd_bin_dir: "/usr/local/bin"
 # etcd data directory (etcd database files so to say)
 etcd_data_dir: "/var/lib/etcd"
+# Architecture to download and install
+etcd_architecture: "amd64"
+# Only change this if the architecture you are using is unsupported (for example: arm64)
+# For more information, see this: https://github.com/etcd-io/website/blob/master/content/docs/v3.4/op-guide/supported-platform.md
+etcd_allow_unsupported_archs: false
 
 etcd_settings:
   "name": "{{ansible_hostname}}"

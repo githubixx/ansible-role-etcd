@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+**10.2.0+3.4.14**
+
+- add support for multiple architectures
+
 **10.1.0+3.4.14**
 
 - update `etcd` to `v3.4.14`

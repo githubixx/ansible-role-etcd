@@ -12,6 +12,9 @@ Description=etcd
 Documentation=https://github.com/coreos
 
 [Service]
+{% if etcd_allow_unsupported_archs %}
+Environment=ETCD_UNSUPPORTED_ARCH={{etcd_architecture}}
+{% endif %}
 ExecStart={{etcd_bin_dir}}/etcd \
 {%- for setting in etcd_settings|sort %}
   --{{setting}}="{{etcd_settings[setting]}}" {% if not loop.last %}\{% endif %}
