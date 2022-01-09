@@ -7,19 +7,19 @@
 etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 
 # etcd version
-etcd_version: "3.4.14"
+etcd_version: "3.5.1"
 # Port where etcd listening for clients
 etcd_client_port: "2379"
 # Port where etcd is listening for it's peer's
 etcd_peer_port: "2380"
 # Interface to bind etcd ports to
 etcd_interface: "tap0"
-# Directroy for etcd configuration
+# Directory for etcd configuration
 etcd_conf_dir: "/etc/etcd"
 # Directory to store downloaded etcd archive
 # Should not be deleted to avoid downloading over and over again
 etcd_download_dir: "/opt/etcd"
-# Directroy to store etcd binaries
+# Directory to store etcd binaries
 etcd_bin_dir: "/usr/local/bin"
 # etcd data directory (etcd database files so to say)
 etcd_data_dir: "/var/lib/etcd"
@@ -46,7 +46,7 @@ etcd_settings:
   "initial-cluster-token": "etcd-cluster-0" # Initial cluster token for the etcd cluster during bootstrap.
   "initial-cluster-state": "new" # Initial cluster state ('new' or 'existing')
   "data-dir": "{{etcd_data_dir}}" # etcd data directory (etcd database files so to say)
-  "wal-dir": "" # Dedicated wal directory ("" means no seperated WAL directory)
+  "wal-dir": "" # Dedicated wal directory ("" means no separated WAL directory)
   "auto-compaction-retention": "0" # Auto compaction retention in hour. 0 means disable auto compaction.
   "snapshot-count": "100000" # Number of committed transactions to trigger a snapshot to disk
   "heartbeat-interval": "100" # Time (in milliseconds) of a heartbeat interval
@@ -54,7 +54,6 @@ etcd_settings:
   "max-snapshots": "5" # Maximum number of snapshot files to retain (0 is unlimited)
   "max-wals": "5" # Maximum number of wal files to retain (0 is unlimited)
   "quota-backend-bytes": "0" # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
-  "log-package-levels": "" # Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
   "logger": "zap" # Specify ‘zap’ for structured logging or ‘capnslog’.
   "log-outputs": "systemd/journal" # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
   "enable-v2": "true" # enable v2 API to stay compatible with previous etcd 3.3.x (needed for flannel e.g.)
