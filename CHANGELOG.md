@@ -4,7 +4,10 @@ Changelog
 **11.0.0+3.5.1**
 
 - update `etcd` to `v3.5.1`
-- remove `log-package-levels` setting from `etcd_settings` as etcd `3.5` does not like empty values for this parameter. So if you need this parameter just add it to `etcd_settings_user` with a sensible value. Otherwise `etcd` wont start
+- remove `log-package-levels` setting from `etcd_settings` as etcd `3.5` does not like empty values for this parameter. So if you need this parameter just add it to `etcd_settings_user` with a sensible value. Otherwise `etcd` wont start.
+- remove unneeded files/directories
+- remove Ubuntu 16.04 support
+- fix typos
 
 **10.2.0+3.4.14**
 
