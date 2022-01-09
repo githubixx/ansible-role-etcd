@@ -54,7 +54,6 @@ etcd_settings:
   "max-snapshots": "5" # Maximum number of snapshot files to retain (0 is unlimited)
   "max-wals": "5" # Maximum number of wal files to retain (0 is unlimited)
   "quota-backend-bytes": "0" # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
-  "log-package-levels": "" # Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
   "logger": "zap" # Specify ‘zap’ for structured logging or ‘capnslog’.
   "log-outputs": "systemd/journal" # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
   "enable-v2": "true" # enable v2 API to stay compatible with previous etcd 3.3.x (needed for flannel e.g.)
