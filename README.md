@@ -10,7 +10,7 @@ Upgrading a etcd cluster which was installed by this role is described in [here]
 Versions
 --------
 
-I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `10.2.1+3.5.1` means this is release `10.2.1` of this role and it's meant to be used with etcd version `3.5.1` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
+I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `11.0.0+3.5.1` means this is release `11.0.0` of this role and it's meant to be used with etcd version `3.5.1` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
 
 Changelog
 ---------
@@ -81,7 +81,6 @@ etcd_settings:
   "max-snapshots": "5" # Maximum number of snapshot files to retain (0 is unlimited)
   "max-wals": "5" # Maximum number of wal files to retain (0 is unlimited)
   "quota-backend-bytes": "0" # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
-  "log-package-levels": "" # Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG')
   "logger": "zap" # Specify ‘zap’ for structured logging or ‘capnslog’.
   "log-outputs": "systemd/journal" # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
   "enable-v2": "true" # enable v2 API to stay compatible with previous etcd 3.3.x (needed for flannel e.g.)
