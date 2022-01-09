@@ -14,12 +14,12 @@ etcd_client_port: "2379"
 etcd_peer_port: "2380"
 # Interface to bind etcd ports to
 etcd_interface: "tap0"
-# Directroy for etcd configuration
+# Directory for etcd configuration
 etcd_conf_dir: "/etc/etcd"
 # Directory to store downloaded etcd archive
 # Should not be deleted to avoid downloading over and over again
 etcd_download_dir: "/opt/etcd"
-# Directroy to store etcd binaries
+# Directory to store etcd binaries
 etcd_bin_dir: "/usr/local/bin"
 # etcd data directory (etcd database files so to say)
 etcd_data_dir: "/var/lib/etcd"
@@ -46,7 +46,7 @@ etcd_settings:
   "initial-cluster-token": "etcd-cluster-0" # Initial cluster token for the etcd cluster during bootstrap.
   "initial-cluster-state": "new" # Initial cluster state ('new' or 'existing')
   "data-dir": "{{etcd_data_dir}}" # etcd data directory (etcd database files so to say)
-  "wal-dir": "" # Dedicated wal directory ("" means no seperated WAL directory)
+  "wal-dir": "" # Dedicated wal directory ("" means no separated WAL directory)
   "auto-compaction-retention": "0" # Auto compaction retention in hour. 0 means disable auto compaction.
   "snapshot-count": "100000" # Number of committed transactions to trigger a snapshot to disk
   "heartbeat-interval": "100" # Time (in milliseconds) of a heartbeat interval
