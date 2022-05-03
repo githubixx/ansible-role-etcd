@@ -1,6 +1,6 @@
 #jinja2: trim_blocks:False
 {%- macro cluster_hosts() -%}
-{%- for host in groups['k8s_etcd'] -%}
+{%- for host in groups[etcd_ansible_group] -%}
 {{hostvars[host]['ansible_hostname']}}=https://{{hostvars[host]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}}{% if not loop.last %},{% endif %}
 {%- endfor -%} 
 {%- endmacro -%}
