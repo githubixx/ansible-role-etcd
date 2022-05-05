@@ -1,10 +1,10 @@
 #jinja2: trim_blocks:False
+{%- if not etcd_settings['discovery-srv'] %}
 {%- macro cluster_hosts() -%}
 {%- for host in groups[etcd_ansible_group] -%}
 {{hostvars[host]['ansible_hostname']}}=https://{{hostvars[host]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}}{% if not loop.last %},{% endif %}
 {%- endfor -%} 
 {%- endmacro -%}
-{%- if not etcd_settings['discovery-srv'] %}
 {%- set x=etcd_settings.__setitem__('initial-cluster',cluster_hosts()) -%}
 {%- set x=etcd_settings.__delitem__('discovery-srv') -%}
 {%- endif %}
