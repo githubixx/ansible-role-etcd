@@ -40,6 +40,7 @@
     group: root
   with_items:
     - "{{ etcd_certificates }}"
+  no_log: '{{ ansible_verbosity < 3 }}'
   tags:
     - etcd
 
