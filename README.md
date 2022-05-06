@@ -33,7 +33,7 @@ Role Variables
 # "/home/da_user/etcd-certificates".
 etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 
-# etcd ansible group
+# etcd Ansible group
 etcd_ansible_group: "k8s_etcd"
 # etcd version
 etcd_version: "3.5.1"
