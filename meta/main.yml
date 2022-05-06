@@ -3,6 +3,7 @@ galaxy_info:
   description: Installs etcd cluster.
   license: GPLv3
   min_ansible_version: 2.9
+  namespace: githubixx
   platforms:
   - name: Ubuntu
     versions:
