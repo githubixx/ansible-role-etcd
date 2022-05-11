@@ -4,7 +4,7 @@ Changelog
 **11.1.0+3.5.4**
 
 - update `etcd` to `v3.5.4`
-- introduce `etcd_ansible_group` variable to allow setting the Ansible group variable for the etcd hosts. The group was formerly hardcoded to `k8s_etcd'.
+- introduce `etcd_ansible_group` variable to allow setting the Ansible group variable for the etcd hosts. The group was formerly hardcoded to `k8s_etcd`.
 - add `no_log` to certificate copy task to avoid private key leakage
 - add Molecule test
 
