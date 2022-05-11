@@ -1,4 +1,7 @@
 ---
+# Copyright (C) 2022 Robert Wimmer
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 etcd_ca_conf_directory: "/tmp/githubixx.etcd"
 etcd_conf_dir: "/etc/etcd"
 etcd_interface: "eth1"
@@ -7,8 +10,4 @@ k8s_ca_conf_directory: "/tmp/githubixx.etcd"
 k8s_ca_conf_directory_perm: "0775"
 k8s_ca_file_perm: "0666"
 k8s_interface: "eth1"
-
-#k8s_ca_controller_nodes_group: k8s_controller
-#k8s_ca_etcd_nodes_group: k8s_etcd
-#k8s_ca_worker_nodes_group: k8s_worker
 
