@@ -1,0 +1,12 @@
+---
+# Copyright (C) 2022 Robert Wimmer
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+- hosts: k8s_etcd
+  remote_user: vagrant
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Include etcd role
+      include_role:
+        name: githubixx.etcd
