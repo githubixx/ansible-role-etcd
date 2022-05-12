@@ -1,0 +1,68 @@
+---
+# Copyright (C) 2022 Robert Wimmer
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+dependency:
+  name: galaxy
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+    type: libvirt
+    options:
+      memory: 192
+      cpus: 2
+
+platforms:
+  - name: test-etcd1-ubuntu2004
+    box: generic/ubuntu2004
+    groups:
+      - k8s_controller
+      - k8s_worker
+      - k8s_etcd
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: static
+        ip: 192.168.10.10
+  - name: test-etcd2-ubuntu2004
+    box: generic/ubuntu2004
+    groups:
+      - k8s_controller
+      - k8s_worker
+      - k8s_etcd
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: static
+        ip: 192.168.10.20
+  - name: test-etcd3-ubuntu2004
+    box: generic/ubuntu2004
+    groups:
+      - k8s_controller
+      - k8s_worker
+      - k8s_etcd
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: static
+        ip: 192.168.10.30
+
+provisioner:
+  name: ansible
+  connection_options:
+    ansible_ssh_user: vagrant
+    ansible_become: true
+  log: true
+  lint: yamllint . && flake8 && ansible-lint
+
+scenario:
+  name: kvm
+  test_sequence:
+    - prepare
+    - converge
+
+verifier:
+  name: ansible
+  enabled: true
