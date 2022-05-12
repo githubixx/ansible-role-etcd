@@ -114,6 +114,29 @@ Example Playbook
     - githubixx.etcd
 ```
 
+Testing
+-------
+
+This role has a small test setup that is created using [Molecule](https://github.com/ansible-community/molecule), libvirt (vagrant-libvirt) and QEMU/KVM. Please see my blog post [Testing Ansible roles with Molecule, libvirt (vagrant-libvirt) and QEMU/KVM](https://www.tauceti.blog/posts/testing-ansible-roles-with-molecule-libvirt-vagrant-qemu-kvm/) how to setup. The test configuration is [here](https://github.com/githubixx/ansible-role-etc/tree/master/molecule/kvm).
+
+Afterwards Molecule can be executed:
+
+```bash
+molecule converge -s kvm
+```
+
+This will setup a three virtual machines (VM) with Ubuntu 20.04 and installs an `etcd` cluster. A small verification step is also included:
+
+```bash
+molecule verify -s kvm
+```
+
+To clean up run
+
+```bash
+molecule destroy -s kvm
+```
+
 License
 -------
 
