@@ -36,7 +36,7 @@ etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 # etcd Ansible group
 etcd_ansible_group: "k8s_etcd"
 # etcd version
-etcd_version: "3.5.1"
+etcd_version: "3.5.4"
 # Port where etcd listening for clients
 etcd_client_port: "2379"
 # Port where etcd is listening for it's peer's
@@ -113,6 +113,29 @@ Example Playbook
 - hosts: k8s_etcd
   roles:
     - githubixx.etcd
+```
+
+Testing
+-------
+
+This role has a small test setup that is created using [Molecule](https://github.com/ansible-community/molecule), libvirt (vagrant-libvirt) and QEMU/KVM. Please see my blog post [Testing Ansible roles with Molecule, libvirt (vagrant-libvirt) and QEMU/KVM](https://www.tauceti.blog/posts/testing-ansible-roles-with-molecule-libvirt-vagrant-qemu-kvm/) how to setup. The test configuration is [here](https://github.com/githubixx/ansible-role-etcd/tree/master/molecule/kvm).
+
+Afterwards Molecule can be executed:
+
+```bash
+molecule converge -s kvm
+```
+
+This will setup a three virtual machines (VM) with Ubuntu 20.04 and installs an `etcd` cluster. A small verification step is also included:
+
+```bash
+molecule verify -s kvm
+```
+
+To clean up run
+
+```bash
+molecule destroy -s kvm
 ```
 
 License

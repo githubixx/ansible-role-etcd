@@ -1,0 +1,34 @@
+---
+# Copyright (C) 2022 Robert Wimmer
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+- name: Setup cfssl
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Include cfssl role
+      include_role:
+        name: githubixx.cfssl
+
+- name: Update cache
+  hosts: k8s_etcd
+  remote_user: vagrant
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Update APT package cache
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+- name: Setup TLS certificates for etcd
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Include kubernetes-ca role to generate TLS certificate files for etcd
+      include_role:
+        name: githubixx.kubernetes-ca
