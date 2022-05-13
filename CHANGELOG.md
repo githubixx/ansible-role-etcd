@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+**11.2.0+3.5.4**
+
+- Add `discovery-srv` setting for initial cluster setup (contribution by @cgoubert )
+
 **11.0.0+3.5.1**
 
 - update `etcd` to `v3.5.1`
