@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+**11.3.0+3.5.4**
+
+- This is mainly a "cosmetic" change. Makes Ansible's linter `ansible-lint` happy, fixes a few typos and use FQDN module names
+
 **11.2.0+3.5.4**
 
 - Add `discovery-srv` setting for initial cluster setup (contribution by @cgoubert )
@@ -34,7 +38,7 @@ Changelog
 
 - changed some default values for `etcd_settings`. `(cert|key)-file` and `peer-(cert|key)-file` now uses different certificates:
 
-```
+```yaml
 "cert-file": "{{etcd_conf_dir}}/cert-etcd-server.pem"
 "key-file": "{{etcd_conf_dir}}/cert-etcd-server-key.pem"
 "peer-cert-file": "{{etcd_conf_dir}}/cert-etcd-peer.pem"
@@ -51,7 +55,7 @@ Therefore `etcd_certificates` list was also adjusted accordingly.
 
 Removed old tags below as the format is not supported by Ansible Galaxy and also not compatible with semver.org:
 
-```
+```plain
 r1.0.0_v3.2.8
 r2.0.0_v3.2.13
 r3.0.0_v3.2.13
@@ -114,7 +118,7 @@ r6.0.1_v3.2.24
 
 **r3.1.0_v3.2.13**
 
-- move some variables into etcd_settings dictionary. As they're not needed outside of the etcd role there is no need to keep them seperate.
+- move some variables into etcd_settings dictionary. As they're not needed outside of the etcd role there is no need to keep them separate.
 
 **r3.0.0_v3.2.13**
 
