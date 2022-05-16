@@ -32,22 +32,22 @@ etcd_architecture: "amd64"
 etcd_allow_unsupported_archs: false
 
 etcd_settings:
-  "name": "{{ansible_hostname}}"
-  "cert-file": "{{etcd_conf_dir}}/cert-etcd-server.pem"
-  "key-file": "{{etcd_conf_dir}}/cert-etcd-server-key.pem"
-  "trusted-ca-file": "{{etcd_conf_dir}}/ca-etcd.pem"
-  "peer-cert-file": "{{etcd_conf_dir}}/cert-etcd-peer.pem"
-  "peer-key-file": "{{etcd_conf_dir}}/cert-etcd-peer-key.pem"
-  "peer-trusted-ca-file": "{{etcd_conf_dir}}/ca-etcd.pem"
+  "name": "{{ ansible_hostname }}"
+  "cert-file": "{{ etcd_conf_dir }}/cert-etcd-server.pem"
+  "key-file": "{{ etcd_conf_dir }}/cert-etcd-server-key.pem"
+  "trusted-ca-file": "{{ etcd_conf_dir }}/ca-etcd.pem"
+  "peer-cert-file": "{{ etcd_conf_dir }}/cert-etcd-peer.pem"
+  "peer-key-file": "{{ etcd_conf_dir }}/cert-etcd-peer-key.pem"
+  "peer-trusted-ca-file": "{{ etcd_conf_dir }}/ca-etcd.pem"
   "peer-client-cert-auth": "true" # # Enable peer client cert authentication
   "client-cert-auth": "true" # Enable client cert authentication
-  "advertise-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port}}"
-  "initial-advertise-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
-  "listen-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
-  "listen-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port + ',https://127.0.0.1:' + etcd_client_port}}"
+  "advertise-client-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port }}"
+  "initial-advertise-peer-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port }}"
+  "listen-peer-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port }}"
+  "listen-client-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port + ',https://127.0.0.1:' + etcd_client_port }}"
   "initial-cluster-token": "etcd-cluster-0" # Initial cluster token for the etcd cluster during bootstrap.
   "initial-cluster-state": "new" # Initial cluster state ('new' or 'existing')
-  "data-dir": "{{etcd_data_dir}}" # etcd data directory (etcd database files so to say)
+  "data-dir": "{{ etcd_data_dir }}" # etcd data directory (etcd database files so to say)
   "wal-dir": "" # Dedicated wal directory ("" means no separated WAL directory)
   "auto-compaction-retention": "0" # Auto compaction retention in hour. 0 means disable auto compaction.
   "snapshot-count": "100000" # Number of committed transactions to trigger a snapshot to disk

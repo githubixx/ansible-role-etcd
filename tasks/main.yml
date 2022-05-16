@@ -1,30 +1,30 @@
 ---
 - name: Gather instance facts
-  setup:
+  ansible.builtin.setup:
 
 - name: Create etcd config directory
-  file:
+  ansible.builtin.file:
     path: "{{ etcd_conf_dir }}"
     state: directory
   tags:
     - etcd
 
 - name: Create etcd download directory
-  file:
+  ansible.builtin.file:
     path: "{{ etcd_download_dir }}"
     state: directory
   tags:
     - etcd
 
 - name: Create etcd bin directory
-  file:
+  ansible.builtin.file:
     path: "{{ etcd_bin_dir }}"
     state: directory
   tags:
     - etcd
 
 - name: Create etcd data directory
-  file:
+  ansible.builtin.file:
     path: "{{ etcd_data_dir }}"
     state: directory
     mode: 0700
@@ -32,7 +32,7 @@
     - etcd
 
 - name: Copy certificates
-  copy:
+  ansible.builtin.copy:
     src: "{{ etcd_ca_conf_directory }}/{{ item }}"
     dest: "{{ etcd_conf_dir }}/{{ item }}"
     mode: 0640
@@ -45,7 +45,7 @@
     - etcd
 
 - name: Downloading official etcd release
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/coreos/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}.tar.gz"
     dest: "{{ etcd_download_dir }}/etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}.tar.gz"
     checksum: "sha256:https://github.com/coreos/etcd/releases/download/v{{ etcd_version }}/SHA256SUMS"
@@ -55,10 +55,10 @@
     - skip_ansible_lint
 
 - name: Unzip downloaded file
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ etcd_download_dir }}/etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}.tar.gz"
     dest: "{{ etcd_download_dir }}/"
-    remote_src: yes
+    remote_src: true
     owner: "root"
     group: "root"
     creates: "{{ etcd_download_dir }}/etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}/etcd"
@@ -66,13 +66,13 @@
     - etcd
 
 - name: Copy etcd binaries to destination directory
-  copy:
+  ansible.builtin.copy:
     src: "{{ etcd_download_dir }}/etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}/{{ item }}"
     dest: "{{ etcd_bin_dir }}/{{ item }}"
     mode: 0755
     owner: root
     group: root
-    remote_src: yes
+    remote_src: true
   with_items:
     - etcd
     - etcdctl
@@ -80,14 +80,14 @@
     - etcd
 
 - name: Combine etcd_settings and etcd_settings_user (if defined)
-  set_fact:
+  ansible.builtin.set_fact:
     etcd_settings: "{{ etcd_settings | combine(etcd_settings_user|default({})) }}"
   tags:
     - etcd
     - etcd-systemd
 
 - name: Create systemd unit file
-  template:
+  ansible.builtin.template:
     src: etc/systemd/system/etcd.service.j2
     dest: /etc/systemd/system/etcd.service
     owner: root
@@ -99,12 +99,13 @@
     - etcd
     - etcd-systemd
 
-- meta: flush_handlers
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Enable and start etcd
-  service:
+  ansible.builtin.service:
     name: etcd
-    enabled: yes
+    enabled: true
     state: started
   tags:
     - etcd

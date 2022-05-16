@@ -25,7 +25,7 @@ This role requires that you already created some certificates for `etcd` (see [K
 Role Variables
 --------------
 
-```
+```yaml
 # The directory from where to copy the etcd certificates. By default this
 # will expand to user's LOCAL $HOME (the user that run's "ansible-playbook ..."
 # plus "/etcd-certificates". That means if the user's $HOME directory is e.g.
@@ -43,12 +43,12 @@ etcd_client_port: "2379"
 etcd_peer_port: "2380"
 # Interface to bind etcd ports to
 etcd_interface: "tap0"
-# Directroy for etcd configuration
+# Directory for etcd configuration
 etcd_conf_dir: "/etc/etcd"
 # Directory to store downloaded etcd archive
 # Should not be deleted to avoid downloading over and over again
 etcd_download_dir: "/opt/etcd"
-# Directroy to store etcd binaries
+# Directory to store etcd binaries
 etcd_bin_dir: "/usr/local/bin"
 # etcd data directory (etcd database files so to say)
 etcd_data_dir: "/var/lib/etcd"
@@ -75,7 +75,7 @@ etcd_settings:
   "initial-cluster-token": "etcd-cluster-0" # Initial cluster token for the etcd cluster during bootstrap.
   "initial-cluster-state": "new" # Initial cluster state ('new' or 'existing')
   "data-dir": "{{etcd_data_dir}}" # etcd data directory (etcd database files so to say)
-  "wal-dir": "" # Dedicated wal directory ("" means no seperated WAL directory)
+  "wal-dir": "" # Dedicated wal directory ("" means no separated WAL directory)
   "auto-compaction-retention": "0" # Auto compaction retention in hour. 0 means disable auto compaction.
   "snapshot-count": "100000" # Number of committed transactions to trigger a snapshot to disk
   "heartbeat-interval": "100" # Time (in milliseconds) of a heartbeat interval
@@ -98,9 +98,9 @@ etcd_certificates:
   - cert-etcd-server-key.pem  # server TLS key file
 ```
 
-The `etcd` default settings defined in `etcd_settings` can be overriden by defining a variable called `etcd_settings_user`. You can also add additional settings by using this variable. E.g. to override the default value for `log-output` seting and add a new setting like `grpc-keepalive-min-time` add the following settings to `group_vars/k8s.yml`:
+The `etcd` default settings defined in `etcd_settings` can be overridden by defining a variable called `etcd_settings_user`. You can also add additional settings by using this variable. E.g. to override the default value for `log-output` setting and add a new setting like `grpc-keepalive-min-time` add the following settings to `group_vars/k8s.yml`:
 
-```
+```yaml
 etcd_settings_user:
   "log-output": "stdout"
   "grpc-keepalive-min-time": "10s"
@@ -109,7 +109,7 @@ etcd_settings_user:
 Example Playbook
 ----------------
 
-```
+```yaml
 - hosts: k8s_etcd
   roles:
     - githubixx.etcd
