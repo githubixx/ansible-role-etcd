@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+**12.0.0+3.5.4**
+
+- introduce new variables: `etcd_conf_dir_mode`, `etcd_download_dir_mode` and `etcd_bin_dir_mode` (see README)
+- fix various `ansible-lint` issues
+
 **11.3.0+3.5.4**
 
 - This is mainly a "cosmetic" change. Makes Ansible's linter `ansible-lint` happy, fixes a few typos and use FQDN module names
