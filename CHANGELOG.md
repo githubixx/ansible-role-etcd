@@ -5,6 +5,7 @@ Changelog
 
 - introduce new variables: `etcd_conf_dir_mode`, `etcd_download_dir_mode` and `etcd_bin_dir_mode` (see README)
 - fix various `ansible-lint` issues
+- add Github release action to push new release to Ansible Galaxy
 
 **11.3.0+3.5.4**
 
