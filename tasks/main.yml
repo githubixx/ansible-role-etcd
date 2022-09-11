@@ -97,7 +97,7 @@
     group: root
     mode: 0644
   notify:
-    - reload systemd
+    - Reload systemd
   tags:
     - etcd
     - etcd-systemd
