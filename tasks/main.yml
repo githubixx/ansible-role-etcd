@@ -81,7 +81,7 @@
 
 - name: Combine etcd_settings and etcd_settings_user (if defined)
   ansible.builtin.set_fact:
-    etcd_settings: "{{ etcd_settings | combine(etcd_settings_user|default({})) }}"
+    etcd_settings: "{{ etcd_settings | combine(etcd_settings_user | default({})) }}"
   tags:
     - etcd
     - etcd-systemd
