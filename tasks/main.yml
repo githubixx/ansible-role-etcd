@@ -6,6 +6,7 @@
   ansible.builtin.file:
     path: "{{ etcd_conf_dir }}"
     state: directory
+    mode: "{{ etcd_conf_dir_mode }}"
   tags:
     - etcd
 
@@ -13,6 +14,7 @@
   ansible.builtin.file:
     path: "{{ etcd_download_dir }}"
     state: directory
+    mode: "{{ etcd_download_dir_mode }}"
   tags:
     - etcd
 
@@ -20,6 +22,7 @@
   ansible.builtin.file:
     path: "{{ etcd_bin_dir }}"
     state: directory
+    mode: "{{ etcd_bin_dir_mode }}"
   tags:
     - etcd
 
