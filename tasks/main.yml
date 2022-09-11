@@ -6,6 +6,7 @@
   ansible.builtin.file:
     path: "{{ etcd_conf_dir }}"
     state: directory
+    mode: "{{ etcd_conf_dir_mode }}"
   tags:
     - etcd
 
@@ -13,6 +14,7 @@
   ansible.builtin.file:
     path: "{{ etcd_download_dir }}"
     state: directory
+    mode: "{{ etcd_download_dir_mode }}"
   tags:
     - etcd
 
@@ -20,6 +22,7 @@
   ansible.builtin.file:
     path: "{{ etcd_bin_dir }}"
     state: directory
+    mode: "{{ etcd_bin_dir_mode }}"
   tags:
     - etcd
 
@@ -81,7 +84,7 @@
 
 - name: Combine etcd_settings and etcd_settings_user (if defined)
   ansible.builtin.set_fact:
-    etcd_settings: "{{ etcd_settings | combine(etcd_settings_user|default({})) }}"
+    etcd_settings: "{{ etcd_settings | combine(etcd_settings_user | default({})) }}"
   tags:
     - etcd
     - etcd-systemd
@@ -94,7 +97,7 @@
     group: root
     mode: 0644
   notify:
-    - reload systemd
+    - Reload systemd
   tags:
     - etcd
     - etcd-systemd
