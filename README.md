@@ -66,6 +66,8 @@ etcd_architecture: "amd64"
 # Only change this if the architecture you are using is unsupported (for example: arm64)
 # For more information, see this: https://github.com/etcd-io/website/blob/master/content/docs/v3.4/op-guide/supported-platform.md
 etcd_allow_unsupported_archs: false
+# Download etcd archive from a custom URL, if set to true (needs etcd_custom_url to be set, which is undefined)
+etcd_custom_download: false
 
 etcd_settings:
   "name": "{{ansible_hostname}}"

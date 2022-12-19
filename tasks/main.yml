@@ -56,6 +56,16 @@
   tags:
     - etcd
     - skip_ansible_lint
+  when: not etcd_custom_download | bool
+
+- name: Downloading etcd from custom URL 
+  ansible.builtin.get_url:
+    url: "{{ etcd_custom_url }}"
+    dest: "{{ etcd_download_dir }}/etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}.tar.gz"
+    mode: 0755
+  tags:
+    - etcd
+  when: etcd_custom_download | bool
 
 - name: Unzip downloaded file
   ansible.builtin.unarchive:
