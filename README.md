@@ -68,6 +68,8 @@ etcd_architecture: "amd64"
 etcd_allow_unsupported_archs: false
 # Download etcd archive from a custom URL, if set to true (needs etcd_custom_url to be set, which is undefined)
 etcd_custom_download: false
+# etcd_custom_url is undefined and can be set to a custom URL to download the tarball
+# etcd_custom_checksum is undefined and if a checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. Read more here: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html 
 
 etcd_settings:
   "name": "{{ansible_hostname}}"
