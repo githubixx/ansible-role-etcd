@@ -66,10 +66,18 @@ etcd_architecture: "amd64"
 # Only change this if the architecture you are using is unsupported (for example: arm64)
 # For more information, see this: https://github.com/etcd-io/website/blob/master/content/docs/v3.4/op-guide/supported-platform.md
 etcd_allow_unsupported_archs: false
-# Download etcd archive from a custom URL, if set to true (needs etcd_custom_url to be set, which is undefined)
-etcd_custom_download: false
-# etcd_custom_url is undefined and can be set to a custom URL to download the tarball
-# etcd_custom_checksum is undefined and if a checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. Read more here: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html 
+# By default etcd tarball gets downloaded from official
+# etcd repository. This can be changed to some custom
+# URL if needed. For more information which protocols
+# can be used see:
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html
+# It's only important to keep the filename naming schema:
+# "etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}.tar.gz"
+etcd_download_url: "https://github.com/etcd-io/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}.tar.gz"
+# By default the SHA256SUMS file is used to verify the
+# checksum of the tarball archive. This can also be
+# changed to your needs.
+etcd_download_url_checksum: "sha256:https://github.com/coreos/etcd/releases/download/v{{ etcd_version }}/SHA256SUMS"
 
 etcd_settings:
   "name": "{{ansible_hostname}}"
