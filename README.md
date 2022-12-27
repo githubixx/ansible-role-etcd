@@ -80,34 +80,34 @@ etcd_download_url: "https://github.com/etcd-io/etcd/releases/download/v{{ etcd_v
 etcd_download_url_checksum: "sha256:https://github.com/coreos/etcd/releases/download/v{{ etcd_version }}/SHA256SUMS"
 
 etcd_settings:
-  "name": "{{ansible_hostname}}"
-  "cert-file": "{{etcd_conf_dir}}/cert-etcd-server.pem"
-  "key-file": "{{etcd_conf_dir}}/cert-etcd-server-key.pem"
-  "trusted-ca-file": "{{etcd_conf_dir}}/ca-etcd.pem"
-  "peer-cert-file": "{{etcd_conf_dir}}/cert-etcd-peer.pem"
-  "peer-key-file": "{{etcd_conf_dir}}/cert-etcd-peer-key.pem"
-  "peer-trusted-ca-file": "{{etcd_conf_dir}}/ca-etcd.pem"
-  "peer-client-cert-auth": "true" # # Enable peer client cert authentication
-  "client-cert-auth": "true" # Enable client cert authentication
-  "advertise-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port}}"
-  "initial-advertise-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
-  "listen-peer-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port}}"
-  "listen-client-urls": "{{'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port + ',https://127.0.0.1:' + etcd_client_port}}"
-  "initial-cluster-token": "etcd-cluster-0" # Initial cluster token for the etcd cluster during bootstrap.
-  "initial-cluster-state": "new" # Initial cluster state ('new' or 'existing')
-  "data-dir": "{{etcd_data_dir}}" # etcd data directory (etcd database files so to say)
-  "wal-dir": "" # Dedicated wal directory ("" means no separated WAL directory)
-  "auto-compaction-retention": "0" # Auto compaction retention in hour. 0 means disable auto compaction.
-  "snapshot-count": "100000" # Number of committed transactions to trigger a snapshot to disk
-  "heartbeat-interval": "100" # Time (in milliseconds) of a heartbeat interval
-  "election-timeout": "1000" # Time (in milliseconds) for an election to timeout. See tuning documentation for details
-  "max-snapshots": "5" # Maximum number of snapshot files to retain (0 is unlimited)
-  "max-wals": "5" # Maximum number of wal files to retain (0 is unlimited)
-  "quota-backend-bytes": "0" # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
-  "logger": "zap" # Specify ‘zap’ for structured logging or ‘capnslog’.
-  "log-outputs": "systemd/journal" # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
-  "enable-v2": "true" # enable v2 API to stay compatible with previous etcd 3.3.x (needed for flannel e.g.)
-  "discovery-srv": "" # Discovery domain to enable DNS SRV discovery, leave empty to disable. If set, will override initial-cluster.
+  "name": "{{ ansible_hostname }}"
+  "cert-file": "{{ etcd_conf_dir }}/cert-etcd-server.pem"
+  "key-file": "{{ etcd_conf_dir }}/cert-etcd-server-key.pem"
+  "trusted-ca-file": "{{ etcd_conf_dir }}/ca-etcd.pem"
+  "peer-cert-file": "{{ etcd_conf_dir }}/cert-etcd-peer.pem"
+  "peer-key-file": "{{ etcd_conf_dir }}/cert-etcd-peer-key.pem"
+  "peer-trusted-ca-file": "{{ etcd_conf_dir }}/ca-etcd.pem"
+  "advertise-client-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port }}"
+  "initial-advertise-peer-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port }}"
+  "listen-peer-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port }}"
+  "listen-client-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port + ',https://127.0.0.1:' + etcd_client_port }}"
+  "peer-client-cert-auth": "true"            # Enable peer client cert authentication
+  "client-cert-auth": "true"                 # Enable client cert authentication
+  "initial-cluster-token": "etcd-cluster-0"  # Initial cluster token for the etcd cluster during bootstrap.
+  "initial-cluster-state": "new"             # Initial cluster state ('new' or 'existing')
+  "data-dir": "{{ etcd_data_dir }}"          # etcd data directory (etcd database files so to say)
+  "wal-dir": ""                              # Dedicated wal directory ("" means no separated WAL directory)
+  "auto-compaction-retention": "0"           # Auto compaction retention in hour. 0 means disable auto compaction.
+  "snapshot-count": "100000"                 # Number of committed transactions to trigger a snapshot to disk
+  "heartbeat-interval": "100"                # Time (in milliseconds) of a heartbeat interval
+  "election-timeout": "1000"                 # Time (in milliseconds) for an election to timeout. See tuning documentation for details
+  "max-snapshots": "5"                       # Maximum number of snapshot files to retain (0 is unlimited)
+  "max-wals": "5"                            # Maximum number of wal files to retain (0 is unlimited)
+  "quota-backend-bytes": "0"                 # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
+  "logger": "zap"                            # Specify ‘zap’ for structured logging or ‘capnslog’.
+  "log-outputs": "systemd/journal"           # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
+  "enable-v2": "true"                        # enable v2 API to stay compatible with previous etcd 3.3.x (needed for flannel e.g.)
+  "discovery-srv": ""                        # Discovery domain to enable DNS SRV discovery, leave empty to disable. If set, will override initial-cluster.
 
 # Certificate authority and certificate files for etcd
 etcd_certificates:
