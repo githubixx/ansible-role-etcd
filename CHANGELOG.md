@@ -1,6 +1,14 @@
 Changelog
 ---------
 
+**12.1.0+3.5.6**
+
+- update `etcd` to `v3.5.6`
+- introduce `etcd_download_url` variable to allow custom `etcd` download URL (contribution by @DanOPT)
+- introduce `etcd_download_url_checksum` variable to allow custom checksum for download URL (contribution by @DanOPT)
+- better variables formatting (only cosmetic change)
+- add `.yamllint`
+
 **12.0.0+3.5.4**
 
 - introduce new variables: `etcd_conf_dir_mode`, `etcd_download_dir_mode` and `etcd_bin_dir_mode` (see README)
