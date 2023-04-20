@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+**12.2.0+3.5.8**
+
+- update `etcd` to `v3.5.8`
+
 **12.1.0+3.5.6**
 
 - update `etcd` to `v3.5.6`
