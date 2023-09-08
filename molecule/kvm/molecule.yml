@@ -58,7 +58,7 @@ provisioner:
   lint: yamllint . && flake8 && ansible-lint
 
 scenario:
-  name: kvm
+  name: default
   test_sequence:
     - prepare
     - converge
