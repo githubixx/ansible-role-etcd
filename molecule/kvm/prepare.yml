@@ -29,6 +29,6 @@
   become: true
   gather_facts: false
   tasks:
-    - name: Include kubernetes-ca role to generate TLS certificate files for etcd
+    - name: Include kubernetes_ca role to generate TLS certificate files for etcd
       include_role:
-        name: githubixx.kubernetes-ca
+        name: githubixx.kubernetes_ca

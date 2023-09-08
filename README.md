@@ -20,7 +20,7 @@ see [CHANGELOG.md](https://github.com/githubixx/ansible-role-etcd/blob/master/CH
 Requirements
 ------------
 
-This role requires that you already created some certificates for `etcd` (see [Kubernetes the not so hard way with Ansible - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-certificate-authority/) and Ansible role [kubernetes-ca](https://galaxy.ansible.com/githubixx/kubernetes-ca)). The playbook searches the certificates in `etcd_ca_conf_directory` on the host this playbook runs. Of course you can create the certificates on your own (see [Generate self-signed certificates](https://github.com/coreos/docs/blob/master/os/generate-self-signed-certificates.md) - Git repository is archived but information is still valid).
+This role requires that you already created some certificates for `etcd` (see [Kubernetes the not so hard way with Ansible - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-certificate-authority/) and Ansible role [kubernetes_ca](https://galaxy.ansible.com/githubixx/kubernetes_ca)). The playbook searches the certificates in `etcd_ca_conf_directory` on the host this playbook runs. Of course you can create the certificates on your own (see [Generate self-signed certificates](https://github.com/coreos/docs/blob/master/os/generate-self-signed-certificates.md) - Git repository is archived but information is still valid).
 
 Role Variables
 --------------
