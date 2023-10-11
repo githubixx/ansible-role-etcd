@@ -36,7 +36,7 @@ etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 # etcd Ansible group
 etcd_ansible_group: "k8s_etcd"
 # etcd version
-etcd_version: "3.5.8"
+etcd_version: "3.5.9"
 # Port where etcd listening for clients
 etcd_client_port: "2379"
 # Port where etcd is listening for it's peer's
