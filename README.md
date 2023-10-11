@@ -3,14 +3,14 @@ ansible-role-etcd
 
 This Ansible role is used in [Kubernetes the not so hard way with Ansible - etcd cluster](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-etcd/). But it can be used without a Kubernetes cluster of course.
 
-Installes a etcd cluster. HINT: This playbook does NOT reload or restart the etcd cluster processes after the systemd service file was changed! This is intentional! It would be a very bad idea to restart all etcd processes at the same time. So if the `etcd.service` file has changed restart/reload etcd by hand one node after the other and check log output if the node joined the cluster again afterwards! As a side node: The script will issue a `systemctl daemon-reload` after the etcd service file was changed so that at least systemd is aware of the changed file and you don't take care about that. So a reboot of a etcd node would also active the new configuration.
+Installs a etcd cluster. HINT: This playbook does NOT reload or restart the etcd cluster processes after the systemd service file was changed! This is intentional! It would be a very bad idea to restart all etcd processes at the same time. So if the `etcd.service` file has changed restart/reload etcd by hand one node after the other and check log output if the node joined the cluster again afterwards! As a side node: The script will issue a `systemctl daemon-reload` after the etcd service file was changed so that at least systemd is aware of the changed file and you don't take care about that. So a reboot of a etcd node would also active the new configuration.
 
 Upgrading a etcd cluster which was installed by this role is described in [here](https://www.tauceti.blog/posts/kubernetes-the-not-so-hard-way-with-ansible-upgrading-kubernetes/#etcd).
 
 Versions
 --------
 
-I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `11.0.0+3.5.1` means this is release `11.0.0` of this role and it's meant to be used with etcd version `3.5.1` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
+I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `13.0.0+3.5.9` means this is release `13.0.0` of this role and it's meant to be used with etcd version `3.5.9` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
 
 Changelog
 ---------
