@@ -9,7 +9,7 @@
   gather_facts: false
   tasks:
     - name: Include cfssl role
-      include_role:
+      ansible.builtin.include_role:
         name: githubixx.cfssl
 
 - name: Update cache
@@ -19,7 +19,7 @@
   gather_facts: true
   tasks:
     - name: Update APT package cache
-      apt:
+      ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
 
@@ -30,5 +30,5 @@
   gather_facts: false
   tasks:
     - name: Include kubernetes_ca role to generate TLS certificate files for etcd
-      include_role:
+      ansible.builtin.include_role:
         name: githubixx.kubernetes_ca
