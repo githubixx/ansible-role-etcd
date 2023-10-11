@@ -10,13 +10,12 @@ driver:
   provider:
     name: libvirt
     type: libvirt
-    options:
-      memory: 192
-      cpus: 2
 
 platforms:
   - name: test-etcd1-ubuntu2204
     box: generic/ubuntu2204
+    memory: 2048
+    cpus: 2
     groups:
       - k8s_controller
       - k8s_worker
@@ -28,6 +27,8 @@ platforms:
         ip: 192.168.10.10
   - name: test-etcd2-ubuntu2004
     box: generic/ubuntu2004
+    memory: 2048
+    cpus: 2
     groups:
       - k8s_controller
       - k8s_worker
@@ -39,6 +40,8 @@ platforms:
         ip: 192.168.10.20
   - name: test-etcd3-ubuntu2004
     box: generic/ubuntu2004
+    memory: 2048
+    cpus: 2
     groups:
       - k8s_controller
       - k8s_worker
