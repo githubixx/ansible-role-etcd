@@ -8,37 +8,51 @@ etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 
 # etcd Ansible group
 etcd_ansible_group: "k8s_etcd"
+
 # etcd version
 etcd_version: "3.5.9"
+
 # Port where etcd listening for clients
 etcd_client_port: "2379"
+
 # Port where etcd is listening for it's peer's
 etcd_peer_port: "2380"
+
 # Interface to bind etcd ports to
 etcd_interface: "tap0"
+
 # Directory for etcd configuration
 etcd_conf_dir: "/etc/etcd"
+
 # Permissions for directory for etcd configuration
 etcd_conf_dir_mode: 0755
+
 # Directory to store downloaded etcd archive
 # Should not be deleted to avoid downloading over and over again
 etcd_download_dir: "/opt/etcd"
+
 # Permissions for directory to store downloaded etcd archive
 etcd_download_dir_mode: 0755
+
 # Directory to store etcd binaries
 etcd_bin_dir: "/usr/local/bin"
+
 # Permissions for directory to store etcd binaries
 # IMPORTANT: If you use the default value for "etcd_bin_dir" which is
 # "/usr/local/bin" make sure that the permissions are correct as this
 # directory exists on every Linux filesystem and is very important!
 etcd_bin_dir_mode: 0755
+
 # etcd data directory (etcd database files so to say)
 etcd_data_dir: "/var/lib/etcd"
+
 # Architecture to download and install
 etcd_architecture: "amd64"
+
 # Only change this if the architecture you are using is unsupported
 # For more information, see this: https://github.com/etcd-io/website/blob/main/content/en/docs/v3.5/op-guide/supported-platform.md 
 etcd_allow_unsupported_archs: false
+
 # By default etcd tarball gets downloaded from official
 # etcd repository. This can be changed to some custom
 # URL if needed. For more information which protocols
@@ -47,6 +61,7 @@ etcd_allow_unsupported_archs: false
 # It's only important to keep the filename naming schema:
 # "etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}.tar.gz"
 etcd_download_url: "https://github.com/etcd-io/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-{{ etcd_architecture }}.tar.gz"
+
 # By default the SHA256SUMS file is used to verify the
 # checksum of the tarball archive. This can also be
 # changed to your needs.
