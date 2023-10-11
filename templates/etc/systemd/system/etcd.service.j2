@@ -2,7 +2,7 @@
 {%- if not etcd_settings['discovery-srv'] %}
 {%- macro cluster_hosts() -%}
 {%- for host in groups[etcd_ansible_group] -%}
-{{hostvars[host]['ansible_hostname']}}=https://{{hostvars[host]['ansible_' + etcd_interface].ipv4.address}}:{{etcd_peer_port}}{% if not loop.last %},{% endif %}
+{{ hostvars[host]['ansible_hostname'] }}=https://{{ hostvars[host]['ansible_' + etcd_interface].ipv4.address }}:{{ etcd_peer_port }}{% if not loop.last %},{% endif %}
 {%- endfor -%} 
 {%- endmacro -%}
 {%- set x=etcd_settings.__setitem__('initial-cluster',cluster_hosts()) -%}
@@ -14,11 +14,11 @@ Documentation=https://github.com/etcd-io/etcd/
 
 [Service]
 {% if etcd_allow_unsupported_archs %}
-Environment=ETCD_UNSUPPORTED_ARCH={{etcd_architecture}}
+Environment=ETCD_UNSUPPORTED_ARCH={{ etcd_architecture }}
 {% endif %}
-ExecStart={{etcd_bin_dir}}/etcd \
+ExecStart={{ etcd_bin_dir }}/etcd \
 {%- for setting in etcd_settings|sort %}
-  --{{setting}}="{{etcd_settings[setting]}}" {% if not loop.last %}\{% endif %}
+  --{{ setting }}="{{ etcd_settings[setting] }}" {% if not loop.last %}\{% endif %}
 {%- endfor %}
 Restart=on-failure
 RestartSec=5
