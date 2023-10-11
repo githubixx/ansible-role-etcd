@@ -54,7 +54,7 @@ etcd_download_dir: "/opt/etcd"
 etcd_download_dir_mode: 0755
 # Directory to store etcd binaries
 etcd_bin_dir: "/usr/local/bin"
-# Permissions for irectory to store etcd binaries
+# Permissions for directory to store etcd binaries
 # IMPORTANT: If you use the default value for "etcd_bin_dir" which is
 # "/usr/local/bin" make sure that the permissions are correct as this
 # directory exists on every Linux filesystem and is very important!
@@ -63,8 +63,8 @@ etcd_bin_dir_mode: 0755
 etcd_data_dir: "/var/lib/etcd"
 # Architecture to download and install
 etcd_architecture: "amd64"
-# Only change this if the architecture you are using is unsupported (for example: arm64)
-# For more information, see this: https://github.com/etcd-io/website/blob/master/content/docs/v3.4/op-guide/supported-platform.md
+# Only change this if the architecture you are using is unsupported
+# For more information, see this: https://github.com/etcd-io/website/blob/main/content/en/docs/v3.5/op-guide/supported-platform.md 
 etcd_allow_unsupported_archs: false
 # By default etcd tarball gets downloaded from official
 # etcd repository. This can be changed to some custom
