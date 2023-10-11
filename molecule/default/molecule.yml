@@ -15,8 +15,8 @@ driver:
       cpus: 2
 
 platforms:
-  - name: test-etcd1-ubuntu2004
-    box: generic/ubuntu2004
+  - name: test-etcd1-ubuntu2204
+    box: generic/ubuntu2204
     groups:
       - k8s_controller
       - k8s_worker
