@@ -1,0 +1,4 @@
+---
+etcd_user: "root"
+etcd_group: "root"
+etcd_user_shell: "/bin/bash"
