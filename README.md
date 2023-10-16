@@ -48,36 +48,116 @@ etcd_peer_port: "2380"
 # Interface to bind etcd ports to
 etcd_interface: "tap0"
 
+# Run etcd daemon as this user.
+#
+# Note 1: If you want to use an "etcd_peer_port" < 1024 you most probably need
+# to run "etcd" as user "root".
+# Note 2: If the user specified in "etcd_user" does not exist then the role
+# will create it. Only if the user already exists the role will not create it
+# but it will adjust it's UID/GID and shell if specified (see settings below).
+# Additionally if "etcd_user" is "root" then this role wont touch the user
+# at all.
+etcd_user: "etcd"
+
+# UID of user specified in "etcd_user". If not specified the next available
+# UID from "/etc/login.defs" will be taken (see "SYS_UID_MAX" setting).
+# etcd_user_uid: "999"
+
+# Shell for specified user in "etcd_user". For increased security keep
+# the default.
+etcd_user_shell: "/bin/false"
+
+# Specifies if the user specified in "etcd_user" will be a system user (default)
+# or not. If "true" the "etcd_user_home" setting will be ignored. In general
+# it makes sense to keep the default as there should be no need to login as
+# the user that runs "etcd".
+etcd_user_system: true
+
+# Home directory of user specified in "etcd_user". Will be ignored if
+# "etcd_user_system" is set to "true". In this case no home directory will
+# be created. Normally not needed.
+# etcd_user_home: "/home/etcd"
+
+# Run etcd daemon as this group
+#
+# Note: If the group specified in "etcd_group" does not exist then the role
+# will create it. Only if the group already exists the role will not create it
+# but will adjust GID if specified in "etcd_group_gid" (see setting below).
+etcd_group: "etcd"
+
+# GID of group specified in "etcd_group". If not specified the next available
+# GID from "/etc/login.defs" will be take (see "SYS_GID_MAX" setting).
+# etcd_group_gid: "999"
+
+# Specifies if the group specified in "etcd_group" will be a system group (default)
+# or not.
+etcd_group_system: true
+
 # Directory for etcd configuration
 etcd_conf_dir: "/etc/etcd"
 
 # Permissions for directory for etcd configuration
-etcd_conf_dir_mode: 0755
+etcd_conf_dir_mode: "0750"
+
+# Owner of directory specified in "etcd_conf_dir"
+etcd_conf_dir_user: "root"
+
+# Group owner of directory specified in "etcd_conf_dir"
+etcd_conf_dir_group: "{{ etcd_group }}"
 
 # Directory to store downloaded etcd archive
 # Should not be deleted to avoid downloading over and over again
 etcd_download_dir: "/opt/etcd"
 
 # Permissions for directory to store downloaded etcd archive
-etcd_download_dir_mode: 0755
+etcd_download_dir_mode: "0755"
+
+# Owner of directory specified in "etcd_download_dir"
+etcd_download_dir_user: "{{ etcd_user }}"
+
+# Group owner of directory specified in "etcd_download_dir"
+etcd_download_dir_group: "{{ etcd_group }}"
 
 # Directory to store etcd binaries
+#
+# IMPORTANT: If you use the default value for "etcd_bin_dir" which is
+# "/usr/local/bin" then the settings specified in "etcd_bin_dir_mode",
+# "etcd_bin_dir_user" and "etcd_bin_dir_group" are ignored. This is
+# done to prevent that the permissions of "/usr/local/bin" are changed.
+# This directory normally exists already on every Linux installation
+# and should not be changed.
+# So please be careful if you specify a directory like "/usr/bin" or
+# "/bin" as "etcd_bin_dir" as this will change the permissions of
+# these directories and this is something you normally do not want.
 etcd_bin_dir: "/usr/local/bin"
 
 # Permissions for directory to store etcd binaries
-# IMPORTANT: If you use the default value for "etcd_bin_dir" which is
-# "/usr/local/bin" make sure that the permissions are correct as this
-# directory exists on every Linux filesystem and is very important!
-etcd_bin_dir_mode: 0755
+etcd_bin_dir_mode: "0755"
+
+# Owner of directory specified in "etcd_bin_dir"
+etcd_bin_dir_user: "{{ etcd_user }}"
+
+# Group owner of directory specified in "etcd_bin_dir"
+etcd_bin_dir_group: "{{ etcd_group }}"
 
 # etcd data directory (etcd database files so to say)
 etcd_data_dir: "/var/lib/etcd"
+
+# Permissions for directory to store etcd data
+etcd_data_dir_mode: "0700"
+
+# Owner of directory specified in "etcd_data_dir"
+etcd_data_dir_user: "{{ etcd_user }}"
+
+# Group owner of directory specified in "etcd_data_dir"
+etcd_data_dir_group: "{{ etcd_group }}"
 
 # Architecture to download and install
 etcd_architecture: "amd64"
 
 # Only change this if the architecture you are using is unsupported
-# For more information, see this: https://github.com/etcd-io/website/blob/main/content/en/docs/v3.5/op-guide/supported-platform.md
+# For more information, see this:
+# https://github.com/etcd-io/website/blob/main/content/en/docs/v3.5/op-guide/supported-platform.md
 etcd_allow_unsupported_archs: false
 
 # By default etcd tarball gets downloaded from official
@@ -93,6 +173,25 @@ etcd_download_url: "https://github.com/etcd-io/etcd/releases/download/v{{ etcd_v
 # checksum of the tarball archive. This can also be
 # changed to your needs.
 etcd_download_url_checksum: "sha256:https://github.com/coreos/etcd/releases/download/v{{ etcd_version }}/SHA256SUMS"
+
+# Options for [Service] section. For more information see:
+# https://www.freedesktop.org/software/systemd/man/systemd.service.html#Options
+# The options below "Type=notify" are mostly security/sandbox related settings
+# and limit the exposure of the system towards the unit's processes.
+# https://www.freedesktop.org/software/systemd/man/systemd.exec.html
+etcd_service_options:
+  - User={{ etcd_user }}
+  - Group={{ etcd_group }}
+  - Restart=on-failure
+  - RestartSec=5
+  - Type=notify
+  - ProtectHome=true
+  - PrivateTmp=true
+  - ProtectSystem=full
+  - ProtectKernelModules=true
+  - ProtectKernelTunables=true
+  - ProtectControlGroups=true
+  - CapabilityBoundingSet=~CAP_SYS_PTRACE
 
 etcd_settings:
   "name": "{{ ansible_hostname }}"
