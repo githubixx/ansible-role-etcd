@@ -39,7 +39,7 @@
         that:
           - "etcdctl_endpoint_health in etcdctl_endpoint_health_output.stdout"
 
-    - name: Put test value into ectd
+    - name: Put test value into etcd
       ansible.builtin.shell: >
         set -o errexit; \
         set -o pipefail; \
@@ -62,7 +62,7 @@
       run_once: true  # noqa: run-once[task]
       delegate_to: "{{ groups['k8s_etcd'][0] }}"
 
-    - name: Get test value from ectd
+    - name: Get test value from etcd
       ansible.builtin.shell: >
         set -o errexit; \
         set -o pipefail; \
