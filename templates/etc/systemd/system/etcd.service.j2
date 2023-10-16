@@ -13,6 +13,9 @@ Description=etcd
 Documentation=https://github.com/etcd-io/etcd/
 
 [Service]
+{%- for setting in etcd_service_options %}
+{{ setting }}
+{%- endfor %}
 {% if etcd_allow_unsupported_archs %}
 Environment=ETCD_UNSUPPORTED_ARCH={{ etcd_architecture }}
 {% endif %}
