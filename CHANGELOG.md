@@ -1,6 +1,21 @@
 Changelog
 ---------
 
+**13.0.0+3.5.9**
+
+**NOTE**: This version contains some potential breaking changes to increase security related settings. So please test thoroughly before upgrading!
+
+- **BREAKING**: Remove support for Ubuntu `18.04` (reached EOL)
+- **BREAKING**: This update introduces quite a few new variables mainly for managing permissions and for security. These variables are: `etcd_service_options`, `etcd_data_dir_group`, `etcd_data_dir_user`, `etcd_data_dir_mode`, `etcd_bin_dir_group`, `etcd_bin_dir_user`, `etcd_download_dir_group`, `etcd_download_dir_user`, `etcd_conf_dir_group`, `etcd_conf_dir_user`, `etcd_group_system`, `etcd_group_gid`, `etcd_group`, `etcd_user_home`, `etcd_user_system`, `etcd_user_shell`, `etcd_user_uid`, `etcd_user`. Please see `defaults/main.yml` what these variables are good for. In general the defaults should be fine. Previously `etcd` was running with `root` account which is not optimal. This was changed so that it runs with user `etcd` by default now as specified in `etcd_user`. The role will take care that all the directories and files will change their owner and group accordingly. In general upgrading should work pretty flawlessly but as said above please test!
+- **BREAKING**: `etcd_service_options` contains options for the `[Service]` section in the systemd `etcd.service` file. Besides a few other settings in also includes security/sandbox related settings and limit the exposure of the system towards the unit's processes.
+- update `etcd` to `v3.5.9`
+- add support for Ubuntu `22.04`
+- Molecule: rename scenario from `kvm` to `default`
+- Molecule: rename `githubixx.kubernetes-ca` to `githubixx.kubernetes_ca`
+- Molecule: remove provider options / add memory + cpu parameter to VMs
+- Molecule: adjust settings + adding host variables to cover different settings
+- fix ansible-lint issues
+
 **12.2.0+3.5.8**
 
 - update `etcd` to `v3.5.8`
