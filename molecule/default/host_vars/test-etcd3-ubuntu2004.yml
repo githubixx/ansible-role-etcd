@@ -1,0 +1,5 @@
+---
+etcd_user_uid: "901"
+etcd_group_gid: "900"
+etcd_user_system: false
+etcd_user_home: "/home/etcd"
