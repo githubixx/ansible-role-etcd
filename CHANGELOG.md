@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+**13.1.0+3.5.9**
+
+- `systemd` service `etcd` should start after network is online
+
 **13.0.0+3.5.9**
 
 **NOTE**: This version contains some potential breaking changes to increase security related settings. So please test thoroughly before upgrading!
