@@ -11,6 +11,8 @@
 [Unit]
 Description=etcd
 Documentation=https://github.com/etcd-io/etcd/
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 {%- for setting in etcd_service_options %}
