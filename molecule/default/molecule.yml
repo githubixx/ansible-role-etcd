@@ -1,5 +1,5 @@
 ---
-# Copyright (C) 2022 Robert Wimmer
+# Copyright (C) 2024 Robert Wimmer
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 dependency:
@@ -24,7 +24,7 @@ platforms:
       - auto_config: true
         network_name: private_network
         type: static
-        ip: 192.168.10.10
+        ip: 172.16.10.10
   - name: test-etcd2-ubuntu2004
     box: generic/ubuntu2004
     memory: 2048
@@ -37,7 +37,7 @@ platforms:
       - auto_config: true
         network_name: private_network
         type: static
-        ip: 192.168.10.20
+        ip: 172.16.10.20
   - name: test-etcd3-ubuntu2004
     box: generic/ubuntu2004
     memory: 2048
@@ -50,7 +50,7 @@ platforms:
       - auto_config: true
         network_name: private_network
         type: static
-        ip: 192.168.10.30
+        ip: 172.16.10.30
 
 provisioner:
   name: ansible
