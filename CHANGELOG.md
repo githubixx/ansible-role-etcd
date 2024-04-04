@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+**13.1.1+3.5.13**
+
+- update `etcd` to `v3.5.13`
+
 **13.1.0+3.5.9**
 
 - `systemd` service `etcd` should start after network is online
