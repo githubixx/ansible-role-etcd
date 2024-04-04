@@ -4,6 +4,8 @@ Changelog
 **13.1.1+3.5.13**
 
 - update `etcd` to `v3.5.13`
+- update Github workflow
+- Molecule: change IP addresses
 
 **13.1.0+3.5.9**
 
