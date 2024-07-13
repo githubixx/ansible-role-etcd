@@ -147,6 +147,9 @@ etcd_download_url: "https://github.com/etcd-io/etcd/releases/download/v{{ etcd_v
 # changed to your needs.
 etcd_download_url_checksum: "sha256:https://github.com/coreos/etcd/releases/download/v{{ etcd_version }}/SHA256SUMS"
 
+# Name for etcd systemd unit
+etcd_service_name: "etcd"
+
 # Options for [Service] section. For more information see:
 # https://www.freedesktop.org/software/systemd/man/systemd.service.html#Options
 # The options below "Type=notify" are mostly security/sandbox related settings

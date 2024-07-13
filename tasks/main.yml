@@ -139,7 +139,7 @@
 - name: Create systemd unit file
   ansible.builtin.template:
     src: etc/systemd/system/etcd.service.j2
-    dest: /etc/systemd/system/etcd.service
+    dest: "/etc/systemd/system/{{ etcd_service_name }}.service"
     owner: "root"
     group: "root"
     mode: "0644"
@@ -154,7 +154,7 @@
 
 - name: Enable and start etcd
   ansible.builtin.service:
-    name: etcd
+    name: "{{ etcd_service_name }}"
     enabled: true
     state: started
   tags:
