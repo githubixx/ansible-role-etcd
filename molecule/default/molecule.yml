@@ -38,8 +38,8 @@ platforms:
         network_name: private_network
         type: static
         ip: 172.16.10.20
-  - name: test-etcd3-ubuntu2004
-    box: generic/ubuntu2004
+  - name: test-etcd3-ubuntu2404
+    box: alvistack/ubuntu-24.04
     memory: 2048
     cpus: 2
     groups:
