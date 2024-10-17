@@ -3,8 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 - name: Setup cfssl
-  hosts: localhost
-  connection: local
+  hosts: etcd_assets
   become: true
   gather_facts: false
   tasks:
@@ -24,11 +23,17 @@
         cache_valid_time: 3600
 
 - name: Setup TLS certificates for etcd
-  hosts: localhost
-  connection: local
+  hosts: etcd_assets
   become: true
   gather_facts: false
   tasks:
     - name: Include kubernetes_ca role to generate TLS certificate files for etcd
       ansible.builtin.include_role:
         name: githubixx.kubernetes_ca
+
+    - name: Copy certificate files from assets to local host
+      ansible.posix.synchronize:
+        mode: pull
+        src: "{{ etcd_ca_conf_directory }}"
+        dest: "/tmp"
+
