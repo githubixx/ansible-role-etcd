@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 - name: Verify setup
-  hosts: all
+  hosts: k8s_etcd
   strategy: linear
   vars:
     etcdctl_version: "3.5"

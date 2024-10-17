@@ -12,6 +12,17 @@ driver:
     type: libvirt
 
 platforms:
+  - name: test-etcd-assets
+    box: alvistack/ubuntu-24.04
+    memory: 2048
+    cpus: 2
+    groups:
+      - etcd_assets
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: static
+        ip: 172.16.10.5
   - name: test-etcd1-ubuntu2204
     box: generic/ubuntu2204
     memory: 2048
