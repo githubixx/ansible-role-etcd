@@ -1,5 +1,4 @@
-ansible-role-etcd
-=================
+# ansible-role-etcd
 
 This Ansible role is used in [Kubernetes the not so hard way with Ansible - etcd cluster](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-etcd/). But it can be used without a Kubernetes cluster of course.
 
@@ -8,23 +7,38 @@ As a side node: The script will issue a `systemctl daemon-reload` after the etcd
 
 Upgrading a etcd cluster which was installed by this role is described in [here](https://www.tauceti.blog/posts/kubernetes-the-not-so-hard-way-with-ansible-upgrading-kubernetes/#etcd).
 
-Versions
---------
+## Versions
 
 I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `13.2.0+3.5.16` means this is release `13.2.0` of this role and it's meant to be used with etcd version `3.5.16` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
 
-Changelog
----------
+## Changelog
 
 see [CHANGELOG.md](https://github.com/githubixx/ansible-role-etcd/blob/master/CHANGELOG.md)
 
-Requirements
-------------
+## Requirements
 
 This role requires that you already created some certificates for `etcd` (see [Kubernetes the not so hard way with Ansible - Certificate authority (CA)](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-certificate-authority/) and Ansible role [kubernetes_ca](https://galaxy.ansible.com/ui/standalone/roles/githubixx/kubernetes_ca/)). The playbook searches the certificates in `etcd_ca_conf_directory` on the host this playbook runs. Of course you can create the certificates on your own (see [Generate self-signed certificates](https://github.com/coreos/docs/blob/master/os/generate-self-signed-certificates.md) - Git repository is archived but information is still valid).
 
-Role Variables
---------------
+## Installation
+
+- Directly download from Github (Change into Ansible roles directory before cloning. You can figure out the role path by using `ansible-config dump | grep DEFAULT_ROLES_PATH` command):
+`git clone https://github.com/githubixx/ansible-role-etcd.git githubixx.etcd`
+
+- Via `ansible-galaxy` command and download directly from Ansible Galaxy:
+`ansible-galaxy install role githubixx.etcd`
+
+- Create a `requirements.yml` file with the following content (this will download the role from Github) and install with
+`ansible-galaxy role install -r requirements.yml` (change `version` if needed):
+
+  ```yaml
+  ---
+  roles:
+    - name: githubixx.etcd
+      src: https://github.com/githubixx/ansible-role-etcd.git
+      version: 13.2.0+3.5.16
+  ```
+
+## Role Variables
 
 ```yaml
 # The directory from where to copy the etcd certificates. By default this
@@ -242,8 +256,7 @@ etcd_settings_user:
   "grpc-keepalive-min-time": "10s"
 ```
 
-Example Playbook
-----------------
+## Example Playbook
 
 ```yaml
 - hosts: k8s_etcd
@@ -251,8 +264,7 @@ Example Playbook
     - githubixx.etcd
 ```
 
-Testing
--------
+## Testing
 
 This role has a small test setup that is created using [Molecule](https://github.com/ansible-community/molecule), libvirt (vagrant-libvirt) and QEMU/KVM. Please see my blog post [Testing Ansible roles with Molecule, libvirt (vagrant-libvirt) and QEMU/KVM](https://www.tauceti.blog/posts/testing-ansible-roles-with-molecule-libvirt-vagrant-qemu-kvm/) how to setup. The test configuration is [here](https://github.com/githubixx/ansible-role-etcd/tree/master/molecule/default).
 
@@ -274,12 +286,10 @@ To clean up run
 molecule destroy
 ```
 
-License
--------
+## License
 
 GNU GENERAL PUBLIC LICENSE Version 3
 
-Author Information
-------------------
+## Author Information
 
 [http://www.tauceti.blog](http://www.tauceti.blog)
