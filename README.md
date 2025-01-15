@@ -35,7 +35,7 @@ This role requires that you already created some certificates for `etcd` (see [K
   roles:
     - name: githubixx.etcd
       src: https://github.com/githubixx/ansible-role-etcd.git
-      version: 13.2.0+3.5.16
+      version: 13.2.1+3.5.17
   ```
 
 ## Role Variables
@@ -52,7 +52,7 @@ etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 etcd_ansible_group: "k8s_etcd"
 
 # etcd version
-etcd_version: "3.5.16"
+etcd_version: "3.5.17"
 
 # Port where etcd listening for clients
 etcd_client_port: "2379"
@@ -274,7 +274,7 @@ Afterwards Molecule can be executed:
 molecule converge
 ```
 
-This will setup a three virtual machines (VM) with Ubuntu 20.04/22.04 and installs an `etcd` cluster. A small verification step is also included:
+This will setup a three virtual machines (VM) with Ubuntu 20.04/22.04/24.04 and installs an `etcd` cluster. A small verification step is also included:
 
 ```bash
 molecule verify

@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.2.1+3.5.17
+
+- update `etcd` to `v3.5.17`
+
 ## 13.2.0+3.5.16
 
 - update `etcd` to `v3.5.16`
