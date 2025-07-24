@@ -1,8 +1,9 @@
 # Changelog
 
-## 13.3.0+3.5.22
+## 14.0.0+3.5.22
 
 - update `etcd` to `v3.5.22`
+- **BREAKING**: Remove support for Ubuntu `20.04` (reached EOL)
 
 ## 13.2.1+3.5.17
 

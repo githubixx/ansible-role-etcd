@@ -274,7 +274,7 @@ Afterwards Molecule can be executed:
 molecule converge
 ```
 
-This will setup a three virtual machines (VM) with Ubuntu 20.04/22.04/24.04 and installs an `etcd` cluster. A small verification step is also included:
+This will setup a three virtual machines (VM) with Ubuntu 22.04/24.04 and installs an `etcd` cluster. A small verification step is also included:
 
 ```bash
 molecule verify
