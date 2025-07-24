@@ -4,6 +4,7 @@
 
 - update `etcd` to `v3.5.22`
 - **BREAKING**: Remove support for Ubuntu `20.04` (reached EOL)
+- Please check [etcd 3.5 CHANGELOG](https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.5.md) before upgrading!
 
 ## 13.2.1+3.5.17
 
