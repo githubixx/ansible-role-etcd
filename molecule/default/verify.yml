@@ -87,6 +87,6 @@
     - name: Assert etcdctl get
       ansible.builtin.assert:
         that:
-          - "'{{ etcdctl_put }}' in etcdctl_get_output.stdout"
+          - "etcdctl_put in etcdctl_get_output.stdout"
       run_once: true  # noqa: run-once[task]
       delegate_to: "{{ groups['k8s_etcd'][1] }}"
