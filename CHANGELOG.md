@@ -2,9 +2,10 @@
 
 ## 14.0.0+3.5.22
 
-- update `etcd` to `v3.5.22`
+- update `etcd` to `v3.5.22` (Please check [etcd 3.5 CHANGELOG](https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.5.md) before upgrading!)
 - **BREAKING**: Remove support for Ubuntu `20.04` (reached EOL)
-- Please check [etcd 3.5 CHANGELOG](https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.5.md) before upgrading!
+- replace `__setitem__` and `__delitem__` method call on `etcd_settings` dictionary in `etcd.service.j2` template
+- Molecule: fix deprecation warning for Ansible >= 2.19
 
 ## 13.2.1+3.5.17
 
