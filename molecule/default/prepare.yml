@@ -36,4 +36,3 @@
         mode: pull
         src: "{{ etcd_ca_conf_directory }}"
         dest: "/tmp"
-
