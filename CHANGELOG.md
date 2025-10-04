@@ -1,5 +1,10 @@
 # Changelog
 
+## 14.0.2+3.5.22
+
+- add `.ansible` directory to `.gitignore`
+- fix `ansible-galaxy install role` -> `ansible-galaxy role install` in README
+
 ## 14.0.1+3.5.22
 
 - fix `README.md`
