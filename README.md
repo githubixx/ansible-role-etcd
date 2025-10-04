@@ -25,7 +25,7 @@ This role requires that you already created some certificates for `etcd` (see [K
 `git clone https://github.com/githubixx/ansible-role-etcd.git githubixx.etcd`
 
 - Via `ansible-galaxy` command and download directly from Ansible Galaxy:
-`ansible-galaxy install role githubixx.etcd`
+`ansible-galaxy role install githubixx.etcd`
 
 - Create a `requirements.yml` file with the following content (this will download the role from Github) and install with
 `ansible-galaxy role install -r requirements.yml` (change `version` if needed):
