@@ -8,6 +8,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 ## 14.0.3+3.5.24
 
 - update `etcd` to `v3.5.24` (Please check [etcd 3.5 CHANGELOG](https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.5.md) before upgrading!)
+- add SPDX license identifiers
 
 ## 14.0.2+3.5.22
 
