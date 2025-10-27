@@ -1,4 +1,7 @@
 ---
+# Copyright (C) 2016-2025 Robert Wimmer
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 etcd_user_uid: "901"
 etcd_group_gid: "900"
 etcd_user_system: false
