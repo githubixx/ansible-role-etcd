@@ -1,4 +1,7 @@
 ---
+# Copyright (C) 2016-2025 Robert Wimmer
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # The directory from where to copy the etcd certificates. By default this
 # will expand to user's LOCAL $HOME (the user that run's "ansible-playbook ..."
 # plus "/etcd-certificates". That means if the user's $HOME directory is e.g.

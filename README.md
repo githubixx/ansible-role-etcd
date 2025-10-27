@@ -1,3 +1,8 @@
+<!--
+Copyright (C) 2016-2025 Robert Wimmer
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # ansible-role-etcd
 
 This Ansible role is used in [Kubernetes the not so hard way with Ansible - etcd cluster](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-etcd/). But it can be used without a Kubernetes cluster of course.

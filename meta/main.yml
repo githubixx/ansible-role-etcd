@@ -1,4 +1,7 @@
 ---
+# Copyright (C) 2016-2025 Robert Wimmer
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 galaxy_info:
   author: Robert Wimmer
   description: Installs etcd cluster.
