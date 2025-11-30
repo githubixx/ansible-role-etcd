@@ -2,11 +2,11 @@
 {# Copyright (C) 2016-2025 Robert Wimmer
  # SPDX-License-Identifier: GPL-3.0-or-later
  #}
-{%- if not etcd_settings['discovery-srv'] %}
+{%- if not etcd_settings['discovery-srv'] and not etcd_settings['initial-cluster'] %}
 {%- macro cluster_hosts() -%}
 {%- for host in groups[etcd_ansible_group] -%}
 {{ hostvars[host]['ansible_hostname'] }}=https://{{ hostvars[host]['ansible_' + etcd_interface].ipv4.address }}:{{ etcd_peer_port }}{% if not loop.last %},{% endif %}
-{%- endfor -%} 
+{%- endfor -%}
 {%- endmacro -%}
 {%- set etcd_settings = etcd_settings | combine({'initial-cluster': cluster_hosts()}) -%}
 {%- set etcd_settings = etcd_settings | dict2items | rejectattr('key', 'equalto', 'discovery-srv') | items2dict -%}
