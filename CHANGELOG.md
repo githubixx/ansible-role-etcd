@@ -5,6 +5,17 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 # Changelog
 
+## 14.0.4+3.5.26
+
+**NOTE**: If you use `etcd` for Kubernetes and want to upgrade to `etcd` `v3.6` you **DEFINITELY** want to upgrade to `etcd` `v3.6.26` first! For further information:
+
+- [Avoiding Zombie Cluster Members When Upgrading to etcd v3.6](https://kubernetes.io/blog/2025/12/21/preventing-etcd-zombies/)
+- [Fix zombie members in v3store](https://github.com/etcd-io/etcd/pull/20995)
+
+Besides that:
+
+- update `etcd` to `v3.5.26` (Please check [etcd 3.5 CHANGELOG](https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.5.md) before upgrading!)
+
 ## 14.0.3+3.5.24
 
 - update `etcd` to `v3.5.24` (Please check [etcd 3.5 CHANGELOG](https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.5.md) before upgrading!)
