@@ -5,6 +5,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 # Changelog
 
+## 15.0.0+3.5.26
+
+- increase `min_ansible_version` to `2.10` in `meta/main.yml`
+- replace injected `ansible_*` facts usage with `ansible_facts[...]` (prepares for ansible-core 2.24 where INJECT_FACTS_AS_VARS default changes)
+- allow specifying external IPs for etcd peer/client URLs when not available via Ansible facts - see [#44](https://github.com/githubixx/ansible-role-etcd/pull/44) (contribution by @pavlozt)
+
 ## 14.0.4+3.5.26
 
 **NOTE**: If you use `etcd` for Kubernetes and want to upgrade to `etcd` `v3.6` you **DEFINITELY** want to upgrade to `etcd` `v3.6.26` first! For further information:

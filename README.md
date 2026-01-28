@@ -14,7 +14,7 @@ Upgrading a etcd cluster which was installed by this role is described in [here]
 
 ## Versions
 
-I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `14.0.4+3.5.26` means this is release `14.0.4` of this role and it's meant to be used with etcd version `3.5.26` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
+I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `15.0.0+3.5.26` means this is release `15.0.0` of this role and it's meant to be used with etcd version `3.5.26` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
 
 ## Changelog
 
@@ -40,7 +40,7 @@ This role requires that you already created some certificates for `etcd` (see [K
   roles:
     - name: githubixx.etcd
       src: https://github.com/githubixx/ansible-role-etcd.git
-      version: 14.0.4+3.5.26
+      version: 15.0.0+3.5.26
   ```
 
 ## Role Variables
@@ -214,17 +214,17 @@ etcd_service_options:
   - CapabilityBoundingSet=~CAP_SYS_PTRACE
 
 etcd_settings:
-  "name": "{{ ansible_hostname }}"
+  "name": "{{ ansible_facts['hostname'] }}"
   "cert-file": "{{ etcd_conf_dir }}/cert-etcd-server.pem"
   "key-file": "{{ etcd_conf_dir }}/cert-etcd-server-key.pem"
   "trusted-ca-file": "{{ etcd_conf_dir }}/ca-etcd.pem"
   "peer-cert-file": "{{ etcd_conf_dir }}/cert-etcd-peer.pem"
   "peer-key-file": "{{ etcd_conf_dir }}/cert-etcd-peer-key.pem"
   "peer-trusted-ca-file": "{{ etcd_conf_dir }}/ca-etcd.pem"
-  "advertise-client-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port }}"
-  "initial-advertise-peer-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port }}"
-  "listen-peer-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_peer_port }}"
-  "listen-client-urls": "{{ 'https://' + hostvars[inventory_hostname]['ansible_' + etcd_interface].ipv4.address + ':' + etcd_client_port + ',https://127.0.0.1:' + etcd_client_port }}"
+  "advertise-client-urls": "{{ 'https://' + ansible_facts[etcd_interface]['ipv4']['address'] + ':' + etcd_client_port }}"
+  "initial-advertise-peer-urls": "{{ 'https://' + ansible_facts[etcd_interface]['ipv4']['address'] + ':' + etcd_peer_port }}"
+  "listen-peer-urls": "{{ 'https://' + ansible_facts[etcd_interface]['ipv4']['address'] + ':' + etcd_peer_port }}"
+  "listen-client-urls": "{{ 'https://' + ansible_facts[etcd_interface]['ipv4']['address'] + ':' + etcd_client_port + ',https://127.0.0.1:' + etcd_client_port }}"
   "peer-client-cert-auth": "true"            # Enable peer client cert authentication
   "client-cert-auth": "true"                 # Enable client cert authentication
   "initial-cluster-token": "etcd-cluster-0"  # Initial cluster token for the etcd cluster during bootstrap.
