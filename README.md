@@ -1,5 +1,5 @@
 <!--
-Copyright (C) 2016-2025 Robert Wimmer
+Copyright (C) 2016-2026 Robert Wimmer
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
@@ -14,7 +14,7 @@ Upgrading a etcd cluster which was installed by this role is described in [here]
 
 ## Versions
 
-I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `14.0.3+3.5.24` means this is release `14.0.3` of this role and it's meant to be used with etcd version `3.5.24` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
+I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `14.0.4+3.5.26` means this is release `14.0.4` of this role and it's meant to be used with etcd version `3.5.26` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
 
 ## Changelog
 
@@ -40,7 +40,7 @@ This role requires that you already created some certificates for `etcd` (see [K
   roles:
     - name: githubixx.etcd
       src: https://github.com/githubixx/ansible-role-etcd.git
-      version: 14.0.3+3.5.24
+      version: 14.0.4+3.5.26
   ```
 
 ## Role Variables
@@ -57,7 +57,7 @@ etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 etcd_ansible_group: "k8s_etcd"
 
 # etcd version
-etcd_version: "3.5.24"
+etcd_version: "3.5.26"
 
 # Port where etcd listening for clients
 etcd_client_port: "2379"

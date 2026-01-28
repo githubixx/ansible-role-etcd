@@ -1,5 +1,5 @@
 ---
-# Copyright (C) 2016-2025 Robert Wimmer
+# Copyright (C) 2016-2026 Robert Wimmer
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # The directory from where to copy the etcd certificates. By default this
@@ -13,7 +13,7 @@ etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 etcd_ansible_group: "k8s_etcd"
 
 # etcd version
-etcd_version: "3.5.24"
+etcd_version: "3.5.26"
 
 # Port where etcd listening for clients
 etcd_client_port: "2379"
