@@ -7,14 +7,24 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 This Ansible role is used in [Kubernetes the not so hard way with Ansible - etcd cluster](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-etcd/). But it can be used without a Kubernetes cluster of course.
 
-Installs a etcd cluster. HINT: This playbook does NOT reload or restart the etcd cluster processes after the systemd service file was changed! This is intentional! It would be a very bad idea to restart all etcd processes at the same time. So if the `etcd.service` file has changed restart/reload etcd by manually one node after the other and check log output if the node joined the cluster again afterwards! Of course this process can be automated too but it's currently not part of this role.
+Installs an `etcd` cluster. __HINT__: This playbook does NOT reload or restart the etcd cluster processes after the systemd service file was changed! This is intentional! It would be a very bad idea to restart all etcd processes at the same time. So if the `etcd.service` file has changed restart/reload etcd by manually one node after the other and check log output if the node joined the cluster again afterwards! Of course this process can be automated too but it's currently not part of this role.
 As a side node: The script will issue a `systemctl daemon-reload` after the etcd service file was changed so that at least systemd is aware of the changed file and you don't take care about that. So a reboot of a etcd node would also active the new configuration.
 
-Upgrading a etcd cluster which was installed by this role is described in [here](https://www.tauceti.blog/posts/kubernetes-the-not-so-hard-way-with-ansible-upgrading-kubernetes/#etcd).
+## Upgrading
+
+Before upgrading, test the upgrade with your clients in a staging environment, check that all cluster endpoints are healthy, and take a snapshot backup. The snapshot contains v3 data only; back up any v2 data separately. See the [etcd upgrade guide](https://etcd.io/docs/v3.7/upgrades/upgrade_3_5/) and [snapshot backup documentation](https://etcd.io/docs/v3.5/op-guide/maintenance/#snapshot-backup).
+
+This role installs the new binaries but does not restart a running etcd service. Restart one member at a time, and check that it has rejoined the cluster and that all endpoints are healthy before restarting the next member. This preserves quorum in a healthy three-member cluster. An unexpected restart or reboot after the binaries are installed can start that member with the new version, so avoid simultaneous restarts during the upgrade.
+
+For upgrades from etcd 3.4, read the [upstream upgrade guide](https://etcd.io/docs/v3.7/upgrades/upgrade_3_5/) first. The cluster must be healthy and running at least 3.4; upstream does not support a rolling upgrade from 3.4 when etcd's built-in authentication is enabled. Once the cluster has fully upgraded to 3.5, downgrading requires restoring a backup.
+
+The role retains `enable-v2: "true"` for compatibility with existing v2 clients. The v2 API is deprecated in etcd 3.5 and removed in 3.6. Check for v2 clients and data before changing this setting or planning a future 3.6 upgrade; see the [3.6 upgrade guide](https://etcd.io/docs/v3.7/upgrades/upgrade_3_6/).
+
+An example upgrade using this role is described [here](https://www.tauceti.blog/posts/kubernetes-the-not-so-hard-way-with-ansible-upgrading-kubernetes/#etcd).
 
 ## Versions
 
-I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `15.0.0+3.5.26` means this is release `15.0.0` of this role and it's meant to be used with etcd version `3.5.26` (but should work with newer versions also). If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
+I tag every release and try to stay with [semantic versioning](http://semver.org). If you want to use the role I recommend to checkout the latest tag. The master branch is basically development while the tags mark stable releases. But in general I try to keep master in good shape too. A tag `15.1.0+3.5.35` means this is release `15.1.0` of this role and it's meant to be used with etcd version `3.5.35`. If the role itself changes `X.Y.Z` before `+` will increase. If the etcd version changes `X.Y.Z` after `+` will increase. This allows to tag bugfixes and new major versions of the role while it's still developed for a specific etcd release.
 
 ## Changelog
 
@@ -40,7 +50,7 @@ This role requires that you already created some certificates for `etcd` (see [K
   roles:
     - name: githubixx.etcd
       src: https://github.com/githubixx/ansible-role-etcd.git
-      version: 15.0.0+3.5.26
+      version: 15.1.0+3.5.35
   ```
 
 ## Role Variables
@@ -57,7 +67,7 @@ etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 etcd_ansible_group: "k8s_etcd"
 
 # etcd version
-etcd_version: "3.5.26"
+etcd_version: "3.5.35"
 
 # Port where etcd listening for clients
 etcd_client_port: "2379"
@@ -238,9 +248,9 @@ etcd_settings:
   "max-snapshots": "5"                       # Maximum number of snapshot files to retain (0 is unlimited)
   "max-wals": "5"                            # Maximum number of wal files to retain (0 is unlimited)
   "quota-backend-bytes": "0"                 # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
-  "logger": "zap"                            # Specify ‘zap’ for structured logging or ‘capnslog’.
+  "logger": "zap"                            # Structured logging.
   "log-outputs": "systemd/journal"           # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
-  "enable-v2": "true"                        # enable v2 API to stay compatible with previous etcd 3.3.x (needed for flannel e.g.)
+  "enable-v2": "true"                        # Deprecated; retained for compatibility with existing v2 clients.
   "discovery-srv": ""                        # Discovery domain to enable DNS SRV discovery, leave empty to disable. If set, will override initial-cluster.
 
 # Certificate authority and certificate files for etcd
@@ -253,11 +263,11 @@ etcd_certificates:
   - cert-etcd-server-key.pem  # server TLS key file
 ```
 
-The `etcd` default settings defined in `etcd_settings` can be overridden by defining a variable called `etcd_settings_user`. You can also add additional settings by using this variable. E.g. to override the default value for `log-output` setting and add a new setting like `grpc-keepalive-min-time` add the following settings to `group_vars/k8s.yml`:
+The `etcd` default settings defined in `etcd_settings` can be overridden by defining a variable called `etcd_settings_user`. You can also add additional settings by using this variable. E.g. to override the default value for `log-outputs` setting and add a new setting like `grpc-keepalive-min-time` add the following settings to `group_vars/k8s.yml`:
 
 ```yaml
 etcd_settings_user:
-  "log-output": "stdout"
+  "log-outputs": "stdout"
   "grpc-keepalive-min-time": "10s"
 ```
 
@@ -279,10 +289,16 @@ Afterwards Molecule can be executed:
 molecule converge
 ```
 
-This will setup a three virtual machines (VM) with Ubuntu 22.04/24.04 and installs an `etcd` cluster. A small verification step is also included:
+This sets up three virtual machines (VMs) with Ubuntu 22.04, 24.04, and 26.04 and installs an `etcd` cluster. A fourth Ubuntu 24.04 VM generates the certificates. A verification step is also included:
 
 ```bash
 molecule verify
+```
+
+To run the complete scenario, including an idempotence check and verification:
+
+```bash
+molecule test
 ```
 
 To clean up run
