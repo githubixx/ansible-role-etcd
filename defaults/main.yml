@@ -13,7 +13,7 @@ etcd_ca_conf_directory: "{{ '~/etcd-certificates' | expanduser }}"
 etcd_ansible_group: "k8s_etcd"
 
 # etcd version
-etcd_version: "3.5.26"
+etcd_version: "3.5.35"
 
 # Port where etcd listening for clients
 etcd_client_port: "2379"
@@ -197,9 +197,9 @@ etcd_settings:
   "max-snapshots": "5"                       # Maximum number of snapshot files to retain (0 is unlimited)
   "max-wals": "5"                            # Maximum number of wal files to retain (0 is unlimited)
   "quota-backend-bytes": "0"                 # Raise alarms when backend size exceeds the given quota (0 defaults to low space quota)
-  "logger": "zap"                            # Specify ‘zap’ for structured logging or ‘capnslog’.
+  "logger": "zap"                            # Structured logging.
   "log-outputs": "systemd/journal"           # Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
-  "enable-v2": "true"                        # enable v2 API to stay compatible with previous etcd 3.3.x (needed for flannel e.g.)
+  "enable-v2": "true"                        # Deprecated; retained for compatibility with existing v2 clients.
   "discovery-srv": ""                        # Discovery domain to enable DNS SRV discovery, leave empty to disable. If set, will override initial-cluster.
 
 # Certificate authority and certificate files for etcd

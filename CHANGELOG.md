@@ -5,6 +5,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 # Changelog
 
+## 15.1.0+3.5.35
+
+- update etcd to `v3.5.35`. See the [etcd 3.5 changelog](https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.5.md) before upgrading.
+- document the manual rolling upgrade and deprecated v2 API; retain the existing v2 setting for compatibility.
+- correct the `log-outputs` configuration example.
+- add Ubuntu 26.04 support and test the three-member cluster on Ubuntu 22.04, 24.04, and 26.04 using the `githubixx` Vagrant boxes.
+
 ## 15.0.0+3.5.26
 
 - increase `min_ansible_version` to `2.10` in `meta/main.yml`
